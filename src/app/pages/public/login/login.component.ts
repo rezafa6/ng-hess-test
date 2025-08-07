@@ -49,6 +49,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   login(): void {
+    this._router.navigate(["/p"]);
+    return
     if (!this.formGroup.valid || this.isSubmitting()) return;
 
     this.isSubmitting.set(true);

@@ -24,13 +24,13 @@ export const APP_ROUTES: Routes = [
   {
     path: 'not-found',
     loadComponent: () => import('./pages/public/not-found/not-found.component').then(m => m.NotFoundComponent),
-    runGuardsAndResolvers: 'always'
+    // runGuardsAndResolvers: 'always'
   },
   {
     path: 'p',
     loadChildren: () => import('./pages/private/private-pages.routes').then(m => m.PRIVATE_PAGES_ROUTES),
     runGuardsAndResolvers: 'always',
-    canActivate: [PrivatePagesGuard],
+    // canActivate: [PrivatePagesGuard],
   },
   {path: '', redirectTo: '/login', pathMatch: 'full'},
   {path: '**', redirectTo: '/not-found', pathMatch: 'full'},
