@@ -97,7 +97,8 @@
               }
             ],
             "styles": [
-              "src/styles.scss"
+                 "src/app/theme/styles/ant-custom-theme.less",
+              "src/app/theme/styles/global-styles.scss"
             ],
             "scripts": []
           }

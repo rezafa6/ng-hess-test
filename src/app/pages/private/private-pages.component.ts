@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { SharedModule } from "../../common/shared.module";
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { Router } from "@angular/router";
 @Component({
   selector: "private-pages",
   imports: [
@@ -12,4 +13,11 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 
 })
 export class PrivatePagesComponent {
+ constructor(
+  private _router: Router
+ ){
+  setTimeout(() => {
+    this._router.navigateByUrl('/p/event-management')
+  } , 150)
+ }
 }

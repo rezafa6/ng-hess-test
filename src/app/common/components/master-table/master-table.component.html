@@ -1,0 +1,31 @@
+<nz-table
+  #basicTable
+  [nzData]="tableData.dataSource"
+  [nzBordered]="true"
+  [nzSize]="'middle'"
+  [nzBordered]="true"
+>
+  <thead>
+    <tr>
+      <th *ngFor="let column of tableData.columns">
+        {{ column.title }}
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let dataItem of tableData.dataSource">
+      <td *ngFor="let column of tableData.columns">
+        <ng-container
+          *ngIf="templates[column.key]; else simpleColDef"
+          [ngTemplateOutlet]="templates[column.key]"
+          [ngTemplateOutletContext]="{ dataItem: dataItem, column: column }"
+        >
+        </ng-container>
+        <ng-template #simpleColDef>
+          <span *ngIf="dataItem[column.key]">{{ dataItem[column.key] }}</span>
+          <span *ngIf="!dataItem[column.key]" class="text-muted">----</span>
+        </ng-template>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

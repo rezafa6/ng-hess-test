@@ -131,3 +131,18 @@
   object-fit: contain !important;
   background-color: $background-light;
 }
+
+// flex
+
+.d-flex {
+  display: flex;
+}
+.align-items-center {
+  align-items: center;
+}
+.justify-content-center {
+  justify-content: center;
+}
+.justify-content-between {
+  justify-content: space-between;
+}

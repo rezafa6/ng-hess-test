@@ -1,0 +1,39 @@
+
+
+<nz-header class="header-wrapper">
+  <div class="d-flex align-items-center justify-content-between">
+    <ul nz-menu nzMode="horizontal" nzTheme="dark"  >
+      <li nz-menu-item nzSelected>
+        <nz-icon nzType="calendar" nzTheme="outline" />
+       Event Management
+      </li>
+      <li nz-menu-item >
+        <nz-icon nzType="appstore" />
+       About Us
+      </li>
+
+      <li nz-menu-item >
+        <nz-icon nzType="appstore" />
+       Contact Us
+      </li>
+    </ul>
+    <ul nz-menu nzMode="horizontal" nzTheme="dark"  >
+      <li nz-menu-item >
+        <nz-icon nzType="calendar" nzTheme="outline" />
+       {{currentDate | date:'dd/MM/yyyy'}}
+      </li>
+      <li nz-menu-item >
+        <nz-avatar  [nzSize]="24" nzText="U" style="color:#f56a00; background-color:#fde3cf;"></nz-avatar>
+      </li>
+      <li nz-menu-item >
+        <nz-icon nzType="notification"  nzTheme="outline"  />
+        <nz-badge [nzDot]="true" [style.top]="'-5px'" class="position-relative"  >
+        </nz-badge>
+      </li>
+      <li nz-menu-item >
+        <nz-tag nzColor="success">PRO</nz-tag>
+      </li>
+
+    </ul>
+  </div>
+</nz-header>

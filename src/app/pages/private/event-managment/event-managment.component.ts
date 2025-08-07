@@ -1,0 +1,24 @@
+import { Component, Renderer2 } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterOutlet } from '@angular/router';
+import { NzLayoutModule } from 'ng-zorro-antd/layout';
+import { NzMenuModule } from 'ng-zorro-antd/menu';
+import { EmHeaderComponent } from "./_layout/em-header/em-header.component";
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzGridModule } from 'ng-zorro-antd/grid';
+
+const antDesignModules = [
+  NzLayoutModule, NzMenuModule, NzIconModule, NzGridModule
+
+]
+@Component({
+  selector: 'app-event-managment',
+  imports: [CommonModule, RouterOutlet , EmHeaderComponent , ... antDesignModules ],
+  templateUrl: './event-managment.component.html',
+  styleUrl: './event-managment.component.scss'
+})
+export class EventManagmentComponent {
+
+  constructor() {}
+
+}
