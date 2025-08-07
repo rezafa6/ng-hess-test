@@ -1,6 +1,11 @@
-<app-master-table [tableData]="tableData">
+@if(showConfetti()) {
+  <app-wellcome-confetti></app-wellcome-confetti>
+}
 
+<app-master-table [tableData]="tableData">
   <ng-template colDef="actions" let-dataItem="dataItem">
     <button nz-button nzType="link" >button</button>
   </ng-template>
 </app-master-table>
+
+

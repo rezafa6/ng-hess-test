@@ -23,7 +23,7 @@
        {{currentDate | date:'dd/MM/yyyy'}}
       </li>
       <li nz-menu-item >
-        <nz-avatar  [nzSize]="24" nzText="U" style="color:#f56a00; background-color:#fde3cf;"></nz-avatar>
+        <nz-avatar  [nzSize]="24" nzText="U" nzOffset="32px" style="color:#f56a00; background-color:#fde3cf;"  [style.top]="'-2px'" class="position-relative" ></nz-avatar>
       </li>
       <li nz-menu-item >
         <nz-icon nzType="notification"  nzTheme="outline"  />
@@ -33,7 +33,6 @@
       <li nz-menu-item >
         <nz-tag nzColor="success">PRO</nz-tag>
       </li>
-
     </ul>
   </div>
 </nz-header>
