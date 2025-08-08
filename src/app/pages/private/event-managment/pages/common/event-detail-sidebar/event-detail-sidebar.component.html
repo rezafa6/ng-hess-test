@@ -1,0 +1,125 @@
+<div class="cover-wrapper" [ngStyle]="{'background-image': 'url(' + data.coverImageUrl + ')'}">
+
+<div class="primary-info p-4 text-center ">
+  <img id="primaryImage" src="{{data.primaryImageUrl}}" alt="" height="128px" width="128px">
+  <h1>{{data.title}}</h1>
+  <p>From {{data.startDateTime | date:'yyyy/MM/dd HH:mm'}}</p>
+  <p>To {{data.endDateTime | date:'yyyy/MM/dd HH:mm'}}</p>
+  <p>{{data.location}}</p>
+  @if(data.public) {
+    <nz-tag nzColor="green">
+      <i nz-icon nzType="check-circle" nzTheme="outline"></i>
+      Public
+    </nz-tag>
+  } @else {
+    <nz-tag nzColor="red">
+    <i nz-icon nzType="close-circle" nzTheme="outline"></i>
+    Private
+  </nz-tag>
+  }
+  <p class="my-2">{{data.description}}</p>
+  <p> <nz-icon nzType="check" nzTheme="outline" /> {{data.status}}</p>
+  <p>{{data.createdAt | date:'dd/MM/yyyy HH:mm'}}</p>
+</div>
+
+</div>
+
+
+<!-- <div >
+  <div class="p-4">
+    <div>
+      <h2> <nz-icon nzType="radius-upright" nzTheme="outline" /> Tickets</h2>
+    </div>
+    @for(ticket of data.tickets; track ticket.id) {
+      <div>
+        <h3>{{ticket.ticketName}}</h3>
+        <h4>{{ticket.price}} {{ticket.currency}}</h4>
+      </div>
+    }
+  </div>
+</div>
+
+
+
+<div>
+  <div class="p-4">
+    <div>
+      <h2> <nz-icon nzType="user" nzTheme="outline" /> Organizer</h2>
+    </div>
+    <div>
+      {{data.organizer.businessName}}
+    </div>
+  </div>
+</div> -->
+
+<nz-row [nzGutter]="24">
+  <!-- Tickets -->
+  <nz-col [nzSpan]="8">
+    <div class="p-4 bg-white rounded shadow-sm">
+      <div>
+        <h2>
+          <nz-icon nzType="radius-upright" nzTheme="outline"></nz-icon>
+          Tickets
+        </h2>
+      </div>
+      @for(ticket of data.tickets; track ticket.id) {
+        <div>
+          <h3>{{ ticket.ticketName }}</h3>
+          <h4>{{ ticket.price }} {{ ticket.currency }}</h4>
+        </div>
+      }
+    </div>
+  </nz-col>
+
+  <!-- Organizer -->
+  <nz-col [nzSpan]="8">
+    <div class="p-4 bg-white rounded shadow-sm">
+      <div>
+        <h2>
+          <nz-icon nzType="user" nzTheme="outline"></nz-icon>
+          Organizer
+        </h2>
+      </div>
+      <div>
+        {{ data.organizer.businessName }}
+      </div>
+    </div>
+  </nz-col>
+
+  <nz-col [nzSpan]="8">
+    <div class="p-4 bg-white rounded shadow-sm">
+      <div>
+        <h2>
+          <nz-icon nzType="contacts" nzTheme="outline"></nz-icon>
+          Leads
+        </h2>
+      </div>
+      @for(lead of data.leads; track lead.id) {
+          <h3>{{ lead.person.email }}</h3>
+      }
+      @if(!data.leads || !data.leads.length) {
+        <nz-empty [nzNotFoundContent]="'No Leads Found'"></nz-empty>
+      }
+    </div>
+  </nz-col>
+</nz-row>
+<!-- [
+    {
+        "id": "ticket-3",
+        "prefix": "VIP",
+        "postfix": "C",
+        "ticketName": "VIP",
+        "price": 200,
+        "currency": "USD",
+        "capacity": 100,
+        "coupons": [
+            {
+                "id": "coupon-2",
+                "code": "FEST10",
+                "discount": 10
+            }
+        ],
+        "ticketPurchases": [],
+        "dateAdded": "2024-05-01T12:00:00Z"
+    }
+] -->

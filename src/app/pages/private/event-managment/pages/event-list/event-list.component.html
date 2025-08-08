@@ -13,6 +13,10 @@
   </button>
 </div>
 
+@if(!loading() && tableData().dataSource.length < 1) {
+  <nz-empty [nzNotFoundContent]="'No Events Found'"></nz-empty>
+}
+
 @if(!loading() && tableData().dataSource.length > 0) {
   <app-master-table [tableData]="tableData()">
 

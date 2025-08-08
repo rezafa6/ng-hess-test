@@ -16,8 +16,10 @@ import { DatePipe } from '@angular/common';
 import { NzTagModule } from 'ng-zorro-antd/tag';
 import { ConfirmService } from '../../../../../common/services/confirm-service';
 import { DrawerService } from '../../../../../common/services/drawer-service';
+import { EventDetailSidebarComponent } from '../common/event-detail-sidebar/event-detail-sidebar.component';
+import { NzEmptyModule } from 'ng-zorro-antd/empty';
 
-const antDesignModules = [NzButtonModule, NzIconModule, NzModalModule, NzImageModule, NzSpinModule, NzToolTipModule, NzSkeletonModule, NzTagModule]
+const antDesignModules = [NzButtonModule, NzIconModule, NzModalModule, NzImageModule, NzSpinModule, NzToolTipModule, NzSkeletonModule, NzTagModule, NzEmptyModule]
 
 @Component({
   selector: 'app-event-list',
@@ -116,7 +118,7 @@ export class EventListComponent implements AfterViewInit, OnInit {
 
   // #region Event Info
   eventInfoBtnClicked(rowData: any) {
-    this._drawerService.open('Event Info', rowData , {
+    this._drawerService.open(EventDetailSidebarComponent,'Event Info', rowData , {
       width: 850
     })
       .subscribe(result => {
