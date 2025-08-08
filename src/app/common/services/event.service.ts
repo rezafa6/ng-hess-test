@@ -47,4 +47,8 @@ export class EventService {
   remove(id: string): Observable<any> {
     return this._http.delete(`${this.apiUrl}/events/${id}`);
   }
+
+  getMockData(): Observable<any> {
+    return this._http.get<any>('/public/mock-data/mock.json');
+  }
 }

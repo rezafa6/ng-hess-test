@@ -2,6 +2,9 @@
   <app-wellcome-confetti></app-wellcome-confetti>
 }
 
+@if(loading()) {
+  <nz-skeleton [nzParagraph]="{ rows: 5 }" [nzTitle]="false" [nzActive]="true"></nz-skeleton>
+}
 
 <div class="my-2">
   <button nz-button nzType="primary" (click)="openCreateModal()">
@@ -10,10 +13,68 @@
   </button>
 </div>
 
-<app-master-table [tableData]="tableData">
-  <ng-template colDef="actions" let-dataItem="dataItem">
-    <button nz-button nzType="link" >button</button>
-  </ng-template>
-</app-master-table>
+@if(!loading() && tableData().dataSource.length > 0) {
+  <app-master-table [tableData]="tableData()">
 
+    <!-- Title & Primary Image  -->
+    <ng-template colDef="title" let-dataItem="dataItem">
+      <div class="d-flex align-items-center">
+        <img
+        nz-tooltip
+        nzTooltipTitle="Click To View"
+        nzTooltipPlacement="top"
+        coverImage
+        nz-image
+        width="42px"
+        height="42px"
+        [nzSrc]="dataItem.primaryImageUrl"
+        [alt]="dataItem.title + ' cover image'"
+        nzSrc="error" [nzFallback]="fallbackImage"
+      />
+        <h5 class="mx-1">{{ dataItem.title }}</h5>
+
+      </div>
+    </ng-template>
+    <!-- Start Date -->
+    <ng-template colDef="startDateTime" let-dataItem="dataItem">
+      <h5>{{ dataItem.startDateTime | date:'dd/MM/yyyy HH:mm' }}</h5>
+    </ng-template>
+
+    <!-- public private -->
+     <ng-template colDef="public" let-dataItem="dataItem">
+
+      @if(dataItem.public) {
+        <nz-tag nzColor="green">
+          <i nz-icon nzType="check-circle" nzTheme="outline"></i>
+          Public
+        </nz-tag>
+      } @else {
+        <nz-tag nzColor="red">
+        <i nz-icon nzType="close-circle" nzTheme="outline"></i>
+        Private
+      </nz-tag>
+      }
+     </ng-template>
+
+    <!-- Actions -->
+    <ng-template colDef="actions" let-dataItem="dataItem">
+      <button nz-button  nzShape="circle"  class="mx-2" nz-tooltip
+      nzTooltipTitle="Click To Edit {{dataItem.title}}" >
+        <nz-icon nzType="edit" nzTheme="outline" />
+      </button>
+      <button nz-button  nzShape="circle"  class="mx-2" nz-tooltip nzTooltipTitle="Click To View {{dataItem.title}} Info" (click)="eventInfoBtnClicked(dataItem)">
+        <nz-icon nzType="info-circle" nzTheme="outline" />
+      </button>
+      <button nz-button nzShape="circle"  class="mx-2" nzDanger  nz-tooltip nzTooltipTitle="Click To Delete {{dataItem.title}}" (click)="deleteEventBtnClicked(dataItem.id)">
+          <nz-icon nzType="delete" nzTheme="outline" />
+      </button>
+    </ng-template>
+  </app-master-table>
+}
+
+
+<!-- <nz-tag nzColor="orange">
+  <i nz-icon nzType="exclamation-circle" nzTheme="outline"></i>
+  Pending
+</nz-tag> -->
 

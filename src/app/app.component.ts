@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import translationsEN from "../../public/i18n/en.json";
+import translationsEN from "../../src/public/i18n/en.json";
 
 
 @Component({
