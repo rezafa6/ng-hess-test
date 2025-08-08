@@ -1,5 +1,5 @@
 import { SharedModule } from './../../../../../../common/shared.module';
-import { Component, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
@@ -13,8 +13,8 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 const antDesignModules = [NzFormModule, NzInputModule, NzButtonModule, NzTypographyModule, NzUploadModule, NzSwitchModule , NzDatePickerModule]
 
 enum UploadZoneType {
-  PRIMARY_IMAGE = 'primaryImage',
-  COVER_IMAGE = 'coverImage',
+  PRIMARY_IMAGE = 'primaryImageUrl',
+  COVER_IMAGE = 'coverImageUrl',
 }
 
 @Component({
@@ -24,24 +24,62 @@ enum UploadZoneType {
   styleUrl: './add-edit-event-modal.component.scss'
 })
 
-export class AddEditEventModalComponent {
-  @Input() title: string = 'Create New Event';
+export class AddEditEventModalComponent implements OnInit  {
 
   UploadZoneType = UploadZoneType
+  editMode: boolean = false;
   form = new FormGroup({
     title: new FormControl('', [Validators.required]),
-    date: new FormControl('', [Validators.required]),
+    startDateTime: new FormControl<Date | null>(null, [Validators.required]),
+    endDateTime: new FormControl<Date | null>(null, [Validators.required]),
     description: new FormControl('', [Validators.required]),
     location: new FormControl('', [Validators.required]),
-    primaryImage: new FormControl('', [Validators.required]),
-    coverImage: new FormControl('', [Validators.required]),
-    public: new FormControl(true),
+    primaryImageUrl: new FormControl('', [Validators.required]),
+    coverImageUrl: new FormControl('', [Validators.required]),
+    isPublic: new FormControl(true),
   });
 
   primaryImageFileList: NzUploadFile[] = [];
   coverImageFileList: NzUploadFile[] = [];
 
-  constructor(private modalRef: NzModalRef) { }
+  constructor(private modalRef: NzModalRef) {}
+
+  ngOnInit(): void {
+    setTimeout(() => {
+      const {data , editMode} = this.modalRef.getConfig().nzData;
+      if(editMode) {
+        this.editMode = true;
+        this.fillEventFormData(data);
+      }
+    }, 1);
+  }
+
+  fillEventFormData(data: any) {
+    const {title , startDateTime , endDateTime , description , location , primaryImageUrl , coverImageUrl , isPublic} = data;
+    this.form.patchValue({
+      title: title,
+      startDateTime: new Date(startDateTime),
+      endDateTime: new Date(endDateTime),
+      description: description,
+      location: location,
+      primaryImageUrl: primaryImageUrl,
+      coverImageUrl: coverImageUrl,
+      isPublic: isPublic,
+    });
+    this.primaryImageFileList = [{
+      uid: primaryImageUrl,
+      name: primaryImageUrl,
+      status: 'done',
+      url: primaryImageUrl
+    }];
+    this.coverImageFileList = [{
+      uid: coverImageUrl,
+      name: coverImageUrl,
+      status: 'done',
+      url: coverImageUrl
+    }];
+    console.log(this.form.value , 'form value');
+  }
 
   onUploadZoneChanged({ file, fileList }: { file: NzUploadFile; fileList: NzUploadFile[] }, uploadZoneType: UploadZoneType): void {
     if (file.status === 'removed') {
@@ -51,7 +89,6 @@ export class AddEditEventModalComponent {
     }
 
     if (file.originFileObj) {
-
       this.getBase64(file.originFileObj, (img: string) => {
         this.form.patchValue({ [uploadZoneType]: img });
         uploadZoneType === UploadZoneType.PRIMARY_IMAGE ? this.primaryImageFileList = [{
@@ -68,6 +105,10 @@ export class AddEditEventModalComponent {
           }];
       });
     }
+    console.log(fileList , 'fileList');
+    console.log(this.primaryImageFileList , 'primaryImageFileList');
+    console.log(this.coverImageFileList ,   'coverImageFileList');
+    console.log(this.form.value , 'form value');
     uploadZoneType === UploadZoneType.PRIMARY_IMAGE ? this.primaryImageFileList = fileList : this.coverImageFileList = fileList;
   }
 
@@ -78,7 +119,7 @@ export class AddEditEventModalComponent {
   }
 
   onSaveBtnClicked(): void {
-    this.modalRef.close(this.form.value);
+    this.modalRef.close({result: this.form.value , editMode: this.editMode});
   }
 
   onCancelBtnClicked(): void {

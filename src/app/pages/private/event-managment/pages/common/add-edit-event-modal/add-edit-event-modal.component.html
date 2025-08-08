@@ -8,37 +8,41 @@
       <nz-form-control [nzSpan]="18" [nzValidateStatus]="isInvalid('title') ? 'error' : 'success'">
         <input nz-input formControlName="title" name="title" />
         @if(isInvalid('title')) {
-          <nz-typography [nzType]="'danger'">
-            Title is required
-          </nz-typography>
+        <nz-typography [nzType]="'danger'">
+          Title is required
+        </nz-typography>
         }
       </nz-form-control>
     </nz-form-item>
     <!-- #End Title -->
 
-        <!-- #Start Date -->
-        <nz-form-item>
-          <nz-form-label [nzSpan]="6">Date</nz-form-label>
-          <nz-form-control
-            [nzSpan]="18"
-            [nzValidateStatus]="isInvalid('date') ? 'error' : 'success'"
-          >
-            <!-- <nz-date-picker formControlName="date" name="date"></nz-date-picker> -->
-            <nz-date-picker
-            formControlName="date"
-            [nzShowTime]="true"
-            nzShowSecond="false"
-            nzFormat="yyyy-MM-dd HH:mm"
-            [nzPlaceHolder]="'Select date and time'"
-          ></nz-date-picker>
+    <!-- #Start Start Date -->
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6">Start Date</nz-form-label>
+      <nz-form-control [nzSpan]="18" [nzValidateStatus]="isInvalid('startDateTime') ? 'error' : 'success'">
+        <nz-date-picker formControlName="startDateTime" [nzShowTime]="true" nzShowSecond="false" nzFormat="yyyy-MM-dd HH:mm"
+          [nzPlaceHolder]="'Select date and time'"></nz-date-picker>
+        <nz-typography *ngIf="isInvalid('startDateTime')" nzType="danger">
+          Date is required
+        </nz-typography>
+      </nz-form-control>
+    </nz-form-item>
 
-            <nz-typography *ngIf="isInvalid('date')" nzType="danger">
-              Date is required
-            </nz-typography>
-          </nz-form-control>
-        </nz-form-item>
+    <!-- #End Start Date -->
 
-        <!-- #End Date -->
+    <!-- #Start End Date -->
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6">End Date</nz-form-label>
+      <nz-form-control [nzSpan]="18" [nzValidateStatus]="isInvalid('endDateTime') ? 'error' : 'success'">
+        <nz-date-picker formControlName="endDateTime" [nzShowTime]="true" nzShowSecond="false" nzFormat="yyyy-MM-dd HH:mm"
+          [nzPlaceHolder]="'Select date and time'"></nz-date-picker>
+        <nz-typography *ngIf="isInvalid('endDateTime')" nzType="danger">
+          Date is required
+        </nz-typography>
+      </nz-form-control>
+    </nz-form-item>
+
+    <!-- #End End Date -->
 
     <!-- #Start Description -->
     <nz-form-item>
@@ -46,99 +50,84 @@
       <nz-form-control [nzSpan]="18" [nzValidateStatus]="isInvalid('description') ? 'error' : 'success'">
         <textarea nz-input formControlName="description" name="description"></textarea>
         @if(isInvalid('description')) {
-          <nz-typography [nzType]="'danger'">
-            Description is required
-          </nz-typography>
+        <nz-typography [nzType]="'danger'">
+          Description is required
+        </nz-typography>
         }
       </nz-form-control>
     </nz-form-item>
     <!-- #End Description -->
 
-         <!-- #Start Location -->
-         <nz-form-item>
-          <nz-form-label [nzSpan]="6">Location</nz-form-label>
-          <nz-form-control [nzSpan]="18" [nzValidateStatus]="isInvalid('location') ? 'error' : 'success'">
-            <input nz-input formControlName="location" name="location" placeholder="Enter location ,example: Tehran, Iran" />
-            @if(isInvalid('location')) {
-              <nz-typography [nzType]="'danger'">
-                Location is required
-              </nz-typography>
-            }
-          </nz-form-control>
-        </nz-form-item>
+    <!-- #Start Location -->
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6">Location</nz-form-label>
+      <nz-form-control [nzSpan]="18" [nzValidateStatus]="isInvalid('location') ? 'error' : 'success'">
+        <input nz-input formControlName="location" name="location"
+          placeholder="Enter location ,example: Tehran, Iran" />
+        @if(isInvalid('location')) {
+        <nz-typography [nzType]="'danger'">
+          Location is required
+        </nz-typography>
+        }
+      </nz-form-control>
+    </nz-form-item>
     <!-- #End Location -->
 
     <!-- #Start Primary Image -->
     <nz-form-item>
       <nz-form-label [nzSpan]="6">Upload Primary Image</nz-form-label>
       <nz-form-control [nzSpan]="18">
-        <nz-upload
-        [nzListType]="'picture-card'"
-        [nzFileList]="primaryImageFileList"
-        [nzAccept]="'.jpg,.jpeg,.png'"
-        [nzMultiple]="false"
-        [nzShowUploadList]="{ showRemoveIcon: true, showPreviewIcon: false,}"
-        (nzChange)="onUploadZoneChanged($event , UploadZoneType.PRIMARY_IMAGE)"
-        [nzShowButton]="primaryImageFileList.length < 1"
-
-      >
-      <ng-container *ngIf="primaryImageFileList.length === 0">
-        <div class="upload-zone">
-          <nz-icon nzType="cloud-upload" nzTheme="outline" ></nz-icon>
-          <h4 >Upload Primary Image</h4>
-          <p>You can drag and drop files here</p>
-        </div>
-      </ng-container>
-      </nz-upload>
+        <nz-upload [nzListType]="'picture-card'" [nzFileList]="primaryImageFileList" [nzAccept]="'.jpg,.jpeg,.png'"
+          [nzMultiple]="false" [nzShowUploadList]="{ showRemoveIcon: true, showPreviewIcon: false}"
+          (nzChange)="onUploadZoneChanged($event , UploadZoneType.PRIMARY_IMAGE)" 
+          [nzShowButton]="primaryImageFileList.length < 1">
+          <ng-container *ngIf="primaryImageFileList.length === 0">
+            <div class="upload-zone">
+              <nz-icon nzType="cloud-upload" nzTheme="outline"></nz-icon>
+              <h4>Upload Primary Image</h4>
+              <p>You can drag and drop files here</p>
+            </div>
+          </ng-container>
+        </nz-upload>
       </nz-form-control>
     </nz-form-item>
     <!-- #End Primary Image -->
 
-        <!-- #Start Cover Image -->
-        <nz-form-item>
-          <nz-form-label [nzSpan]="6">Upload Cover Image</nz-form-label>
-          <nz-form-control [nzSpan]="18">
-            <nz-upload
-            [nzListType]="'picture-card'"
-            [nzFileList]="coverImageFileList"
-            [nzAccept]="'.jpg,.jpeg,.png'"
-            [nzMultiple]="false"
-            [nzShowUploadList]="{ showRemoveIcon: true, showPreviewIcon: false,}"
-            (nzChange)="onUploadZoneChanged($event , UploadZoneType.COVER_IMAGE)"
-            [nzShowButton]="coverImageFileList.length < 1"
-          >
-            <ng-container *ngIf="coverImageFileList.length === 0">
-              <div class="upload-zone">
-                <nz-icon nzType="cloud-upload" nzTheme="outline" ></nz-icon>
-                <h4 >Upload Cover Image</h4>
-                <p>You can drag and drop files here</p>
-              </div>
-            </ng-container>
-          </nz-upload>
-          </nz-form-control>
-        </nz-form-item>
-        <!-- #End Cover Image -->
+    <!-- #Start Cover Image -->
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6">Upload Cover Image</nz-form-label>
+      <nz-form-control [nzSpan]="18">
+        <nz-upload [nzListType]="'picture-card'" [nzFileList]="coverImageFileList" [nzAccept]="'.jpg,.jpeg,.png'"
+          [nzMultiple]="false" [nzShowUploadList]="{ showRemoveIcon: true, showPreviewIcon: false,}"
+          (nzChange)="onUploadZoneChanged($event , UploadZoneType.COVER_IMAGE)"
+          [nzShowButton]="coverImageFileList.length < 1">
+          <ng-container *ngIf="coverImageFileList.length === 0">
+            <div class="upload-zone">
+              <nz-icon nzType="cloud-upload" nzTheme="outline"></nz-icon>
+              <h4>Upload Cover Image</h4>
+              <p>You can drag and drop files here</p>
+            </div>
+          </ng-container>
+        </nz-upload>
+      </nz-form-control>
+    </nz-form-item>
+    <!-- #End Cover Image -->
 
-        <!-- #Start Public/Private toggle -->
-        <nz-form-item>
-          <nz-form-label [nzSpan]="6">Public/Private</nz-form-label>
-          <nz-form-control [nzSpan]="18">
-            <nz-switch
-            formControlName="public"
-            [nzCheckedChildren]="checkedTemplate"
-            [nzUnCheckedChildren]="unCheckedTemplate"
-          ></nz-switch>
-          <ng-template #checkedTemplate><nz-icon nzType="check" /></ng-template>
-          <ng-template #unCheckedTemplate><nz-icon nzType="close" /></ng-template>
-          </nz-form-control>
-        </nz-form-item>
-        <!-- #End Public/Private toggle -->
+    <!-- #Start Public/Private toggle -->
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6">Public/Private</nz-form-label>
+      <nz-form-control [nzSpan]="18">
+        <nz-switch formControlName="isPublic" [nzCheckedChildren]="checkedTemplate"
+          [nzUnCheckedChildren]="unCheckedTemplate"></nz-switch>
+        <ng-template #checkedTemplate><nz-icon nzType="check" /></ng-template>
+        <ng-template #unCheckedTemplate><nz-icon nzType="close" /></ng-template>
+      </nz-form-control>
+    </nz-form-item>
+    <!-- #End Public/Private toggle -->
   </form>
 </div>
-
-<div class="modal-footer">
+<hr>
+<div class="d-flex justify-content-center mt-4">
   <button nz-button nzType="default" (click)="onCancelBtnClicked()">Cancel</button>
-  <button nz-button nzType="primary" (click)="onSaveBtnClicked()">Save</button>
+  <button nz-button nzType="primary" (click)="onSaveBtnClicked()" class="mx-2">Save</button>
 </div>
-
- 

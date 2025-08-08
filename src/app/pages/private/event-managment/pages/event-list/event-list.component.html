@@ -33,10 +33,10 @@
         height="42px"
         [nzSrc]="dataItem.primaryImageUrl"
         [alt]="dataItem.title + ' cover image'"
-        nzSrc="error" [nzFallback]="fallbackImage"
+
       />
         <h5 class="mx-1">{{ dataItem.title }}</h5>
-
+<!--         nzSrc="error" [nzFallback]="fallbackImage" -->
       </div>
     </ng-template>
     <!-- Start Date -->
@@ -45,9 +45,9 @@
     </ng-template>
 
     <!-- public private -->
-     <ng-template colDef="public" let-dataItem="dataItem">
+     <ng-template colDef="isPublic" let-dataItem="dataItem">
 
-      @if(dataItem.public) {
+        @if(dataItem.isPublic) {
         <nz-tag nzColor="green">
           <i nz-icon nzType="check-circle" nzTheme="outline"></i>
           Public
@@ -62,7 +62,7 @@
 
     <!-- Actions -->
     <ng-template colDef="actions" let-dataItem="dataItem">
-      <button nz-button  nzShape="circle"  class="mx-2" nz-tooltip
+      <button nz-button  nzShape="circle"  class="mx-2" nz-tooltip (click)="prepareToEditEvent(dataItem)"
       nzTooltipTitle="Click To Edit {{dataItem.title}}" >
         <nz-icon nzType="edit" nzTheme="outline" />
       </button>

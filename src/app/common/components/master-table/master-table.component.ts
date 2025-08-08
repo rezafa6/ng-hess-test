@@ -19,7 +19,9 @@ export class MasterTableComponent implements OnInit, AfterContentInit {
 
   templates: { [key: string]: any } = {};
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.tableData.columns = this.tableData.columns.filter((column: any) => column.isShow);
+  }
 
   ngAfterContentInit() {
     this.colsDef.forEach(col => {

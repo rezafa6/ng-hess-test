@@ -32,14 +32,15 @@ export class EventListComponent implements AfterViewInit, OnInit {
   private _destroy$ = new Subject<void>();
   showConfetti = signal(true);
   loading = signal(false);
-
+  editMode: boolean = false;
   tableData = signal({
     columns: [
+      { key: 'id', title: 'id', isShow: false },
       { key: 'title', title: 'Name', isShow: true },
       { key: 'startDateTime', title: 'Start Date', isShow: true },
       { key: 'description', title: 'Description', isShow: true },
       { key: 'location', title: 'Location', isShow: true },
-      { key: 'public', title: 'Public', isShow: true },
+      { key: 'isPublic', title: 'Public', isShow: true },
       { key: 'actions', title: 'Actions', isShow: true },
     ],
     dataSource: []
@@ -77,7 +78,7 @@ export class EventListComponent implements AfterViewInit, OnInit {
 
             data.events.forEach((event: any, index: number) => {
               const { venue } = event;
-              event.public = index % 2 == 0; // * set `public` prop (mock data missed this prop)
+              event.isPublic = index % 2 == 0; // * set `public` prop (mock data missed this prop)
               event.location = `${venue.venueName} ${venue.address1} ${venue.city} ${venue.state} ${venue.country} ${venue.postalZip}`;
             });
             // this.tableData.dataSource = data.events;
@@ -89,11 +90,10 @@ export class EventListComponent implements AfterViewInit, OnInit {
             this.loading.set(false);
           },
           error: (error) => {
-            console.log('error');
-            console.log(error);
+
           },
           complete: () => {
-            console.log('complete');
+
             this._destroy$.next();
             this.loading.set(false);
           }
@@ -127,24 +127,72 @@ export class EventListComponent implements AfterViewInit, OnInit {
   }
   // #endregion
 
-  // #region Open Create Modal
-  openCreateModal() {
+  // #region Open Create and Edit Modal
+
+  prepareToEditEvent(event: any) {
+    const eventData = {
+      id: event.id,
+      title: event.title,
+      description: event.description,
+      location: event.location,
+      isPublic: event.isPublic,
+      startDateTime: new Date(event.startDateTime),
+      endDateTime: new Date(event.endDateTime),
+      primaryImageUrl: event.primaryImageUrl,
+      coverImageUrl: event.coverImageUrl,
+    }
+    this.editMode = true;
+    this.openCreateModal(eventData);
+  }
+
+  openCreateModal(eventData: any = null) {
     const modalRef = this._modal.create({
-      nzTitle: 'Create New Event',
+      nzTitle: this.editMode ? `Edit ${eventData.title} Event` : 'Create New Event',
       nzContent: AddEditEventModalComponent,
-      // nzComponentParams: {
-      //   title: 'Create User',
-      // },
       nzData: {
-        title: 'Create New Event 2'
+        title: this.editMode ? 'Edit Event' : 'Create New Event',
+        data: eventData,
+        editMode: this.editMode
       },
       nzFooter: null,
       nzWidth: window.innerWidth > 768 ? '50%' : '90%'
     });
 
-    modalRef.afterClose.subscribe(result => {
-      if (result) {
-        console.log('Created User:', result);
+    modalRef.afterClose.subscribe(output => {
+      this.editMode = false;
+      if (output) {
+        console.log(output , 'output');
+        const {result , editMode} = output;
+        // edit current event
+        if(editMode) {
+          console.log( 'is edit mode');
+          this.tableData.update((current: any) => ({
+            ...current,
+            dataSource: current.dataSource.map((event: any) => event.id === eventData.id ? {...result , id: eventData} : event)
+          }))
+          return;
+        }
+        // create new event
+        const newEvent = {
+          title: result.title,
+          description: result.description,
+          location: result.location,
+          isPublic: result.isPublic,
+          startDateTime: new Date(result.startDateTime),
+          endDateTime: new Date(result.endDateTime),
+          primaryImageUrl: result.primaryImageUrl,
+          coverImageUrl: result.coverImageUrl,
+          tickets: [],
+          leads: [],
+          status: 'Active',
+          organizer: {
+            businessName: 'Organizer@name.com',
+          }
+        }
+        this.tableData.update((current: any) => ({
+          ...current,
+          dataSource: [...current.dataSource, newEvent]
+        }))
       }
     });
   }
