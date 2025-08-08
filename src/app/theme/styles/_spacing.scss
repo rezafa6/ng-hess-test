@@ -1,0 +1,78 @@
+
+// $spacings: (
+//   0: 0,
+//   1: 0.25rem, // 4px approx
+//   2: 0.5rem,  // 8px
+//   3: 1rem,    // 16px
+//   4: 1.5rem,  // 24px
+//   5: 3rem     // 48px
+// );
+
+// @function spacing($key) {
+//   @return map-get($spacings, $key);
+// }
+
+// @mixin generate-spacing($property) {
+//   @each $key, $value in $spacings {
+//     .#{$property}-#{$key} {
+//       #{$property}: $value !important;
+//     }
+//   }
+
+//   @each $key, $value in $spacings {
+//     .#{$property}x-#{$key} {
+//       #{$property}-left: $value !important;
+//       #{$property}-right: $value !important;
+//     }
+//   }
+
+//   @each $key, $value in $spacings {
+//     .#{$property}y-#{$key} {
+//       #{$property}-top: $value !important;
+//       #{$property}-bottom: $value !important;
+//     }
+//   }
+// }
+
+// @include generate-spacing(m);
+
+// @include generate-spacing(p);
+$spacings: (
+  0: 0,
+  1: 0.25rem,
+  2: 0.5rem,
+  3: 1rem,
+  4: 1.5rem,
+  5: 3rem
+);
+
+@mixin generate-spacing($prefix, $property) {
+  // کل خاصیت (مثل margin یا padding)
+  @each $key, $value in $spacings {
+    .#{$prefix}-#{$key} {
+      #{$property}: $value !important;
+    }
+  }
+
+  // محور x (left & right)
+  @each $key, $value in $spacings {
+    .#{$prefix}x-#{$key} {
+      #{$property}-left: $value !important;
+      #{$property}-right: $value !important;
+    }
+  }
+
+  // محور y (top & bottom)
+  @each $key, $value in $spacings {
+    .#{$prefix}y-#{$key} {
+      #{$property}-top: $value !important;
+      #{$property}-bottom: $value !important;
+    }
+  }
+}
+
+// تولید کلاس‌های margin
+@include generate-spacing('m', 'margin');
+
+// تولید کلاس‌های padding
+@include generate-spacing('p', 'padding');

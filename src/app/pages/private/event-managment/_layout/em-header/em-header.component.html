@@ -18,18 +18,21 @@
       </li>
     </ul>
     <ul nz-menu nzMode="horizontal" nzTheme="dark"  >
-      <li nz-menu-item >
+      <!-- <li nz-menu-item > -->
         <nz-icon nzType="calendar" nzTheme="outline" />
        {{currentDate | date:'dd/MM/yyyy'}}
-      </li>
+      <!-- </li> -->
       <li nz-menu-item >
         <nz-avatar  [nzSize]="24" nzText="U" nzOffset="32px" style="color:#f56a00; background-color:#fde3cf;"  [style.top]="'-2px'" class="position-relative" ></nz-avatar>
       </li>
-      <li nz-menu-item >
-        <nz-icon nzType="notification"  nzTheme="outline"  />
+      <!-- <li nz-menu-item > -->
+        <!-- <nz-icon nzType="notification"  nzTheme="outline"  /> -->
+        <button nz-button nzType="primary" nzShape="circle">
+          <nz-icon nzType="notification" />
+        </button>
         <nz-badge [nzDot]="true" [style.top]="'-5px'" class="position-relative"  >
         </nz-badge>
-      </li>
+      <!-- </li> -->
       <li nz-menu-item >
         <nz-tag nzColor="success">PRO</nz-tag>
       </li>

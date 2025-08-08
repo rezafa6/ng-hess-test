@@ -2,6 +2,14 @@
   <app-wellcome-confetti></app-wellcome-confetti>
 }
 
+
+<div class="my-2">
+  <button nz-button nzType="primary" (click)="openCreateModal()">
+    <nz-icon nzType="plus" />
+    Add Event
+  </button>
+</div>
+
 <app-master-table [tableData]="tableData">
   <ng-template colDef="actions" let-dataItem="dataItem">
     <button nz-button nzType="link" >button</button>
