@@ -133,7 +133,6 @@ To add a new field in the **Add/Edit Event Modal** component (`add-edit-event-mo
 
 - Add the ability to **select multiple events** in the list view (via checkboxes or row selection) and delete them in a single action.
 
-### Implementation Ideas
-- Use Ant Design's built-in table row selection feature.
-- Provide a "Delete Selected" button in the toolbar.
-- Confirm deletion with a modal before proceeding.
+  - Use Ant Design's built-in table row selection feature.
+  - Provide a "Delete Selected" button in the toolbar.
+  - Confirm deletion with a modal before proceeding.
