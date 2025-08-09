@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { NzDrawerService } from 'ng-zorro-antd/drawer';
 import { Observable } from 'rxjs';
-// import { DrawerContentComponent } from '../components/drawer-content/drawer-content.component';
 
 interface DrawerConfigs {
   width?: number;

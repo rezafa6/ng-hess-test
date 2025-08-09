@@ -1,16 +1,28 @@
-import { Routes } from "@angular/router";
-import { EventManagmentComponent } from "./event-managment.component";
-import { EventListComponent } from "./pages/event-list/event-list.component";
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { EventManagmentComponent } from './event-managment.component';
+import { EventListComponent } from './pages/event-list/event-list.component';
 
-export const EVENT_MANAGEMENT_ROUTES: Routes = [
+const routes: Routes = [
   {
-    path: "event-management",
+    path: '',
     component: EventManagmentComponent,
     children: [
       {
-        path: "",
-        component: EventListComponent
-      }
-    ]
+        path: 'event-list',
+        component: EventListComponent,
+      },
+      {
+        path: '',
+        redirectTo: 'event-list',
+        pathMatch: 'full',
+      },
+    ],
   },
 ];
+
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
+})
+export class EventManagmentRoutingModule {}

@@ -9,6 +9,8 @@ import { NzSwitchModule } from "ng-zorro-antd/switch";
   import { NzTabsModule } from "ng-zorro-antd/tabs";
 import { ColDefDirective } from "./directives/col-def.directive";
 import { SearchFilterPipe } from "./pipes/search-filter.pipe";
+import { NzDrawerService } from "ng-zorro-antd/drawer";
+import { DrawerService } from "./services/drawer-service";
 
 @NgModule({
   imports: [
@@ -22,7 +24,8 @@ import { SearchFilterPipe } from "./pipes/search-filter.pipe";
     NzSwitchModule,
     NzTabsModule,
     ColDefDirective,
-    SearchFilterPipe
+    SearchFilterPipe,
+
   ],
   exports: [
     CommonModule,
@@ -33,7 +36,9 @@ import { SearchFilterPipe } from "./pipes/search-filter.pipe";
     NzIconModule,
     NzSwitchModule,
     NzTabsModule,
-    SearchFilterPipe
+    SearchFilterPipe,
+
   ],
+  providers: [NzDrawerService, DrawerService]
 })
 export class SharedModule {}

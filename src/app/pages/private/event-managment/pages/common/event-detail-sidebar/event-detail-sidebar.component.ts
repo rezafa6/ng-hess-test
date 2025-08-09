@@ -16,9 +16,5 @@ const antDesignModules = [NzTagModule, NzIconModule , NzGridModule , NzEmptyModu
 })
 export class EventDetailSidebarComponent {
   @Input() data: any;
-  constructor(){
-    setTimeout(() => {
-        console.warn(this.data)
-    }, 100);
-  }
+
 }

@@ -78,7 +78,6 @@ export class AddEditEventModalComponent implements OnInit  {
       status: 'done',
       url: coverImageUrl
     }];
-    console.log(this.form.value , 'form value');
   }
 
   onUploadZoneChanged({ file, fileList }: { file: NzUploadFile; fileList: NzUploadFile[] }, uploadZoneType: UploadZoneType): void {
@@ -105,10 +104,7 @@ export class AddEditEventModalComponent implements OnInit  {
           }];
       });
     }
-    console.log(fileList , 'fileList');
-    console.log(this.primaryImageFileList , 'primaryImageFileList');
-    console.log(this.coverImageFileList ,   'coverImageFileList');
-    console.log(this.form.value , 'form value');
+
     uploadZoneType === UploadZoneType.PRIMARY_IMAGE ? this.primaryImageFileList = fileList : this.coverImageFileList = fileList;
   }
 

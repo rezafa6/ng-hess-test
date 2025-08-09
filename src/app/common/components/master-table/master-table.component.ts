@@ -7,12 +7,14 @@ import { SearchFilterPipe } from '../../pipes/search-filter.pipe';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzGridModule } from 'ng-zorro-antd/grid';
+import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 
 const nzModules = [
   NzTableModule,
   NzInputModule,
   NzIconModule,
-  NzGridModule
+  NzGridModule,
+  NzPaginationModule
 ]
 
 @Component({

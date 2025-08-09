@@ -37,7 +37,8 @@ const antDesignModules = [
 
 @Component({
   selector: 'app-event-list',
-  imports: [FormsModule , MasterTableComponent, ColDefDirective, WellcomeConfettiComponent, DatePipe, SharedModule, ...antDesignModules],
+  imports: [FormsModule , MasterTableComponent, ColDefDirective, WellcomeConfettiComponent, DatePipe, SharedModule, ...antDesignModules ],
+  providers: [],
   templateUrl: './event-list.component.html',
   styleUrl: './event-list.component.scss',
 
@@ -49,7 +50,7 @@ export class EventListComponent implements AfterViewInit, OnInit {
   showConfetti = signal(true);
   editMode: boolean = false;
   loading = signal(false);
-  originalDataSource = []
+  originalDataSource = []  
 
   tableData = signal({
     columns: [

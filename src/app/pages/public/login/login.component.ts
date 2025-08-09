@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   login(): void {
-    this._router.navigate(["/p"]);
+    this._router.navigate(["/event-management"]);
     return
     if (!this.formGroup.valid || this.isSubmitting()) return;
 

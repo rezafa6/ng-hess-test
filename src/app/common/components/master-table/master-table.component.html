@@ -1,57 +1,40 @@
-<!-- <input type="text" [(ngModel)]="searchTerm" placeholder="Search..." class="mb-3 form-control" /> -->
+<div style="overflow-x: auto;">
 
-<nz-row class="my-2" *ngIf="showSearchInput">
-  <nz-col [nzSpan]="7">  
-    <nz-input-group [nzSuffix]="suffixIconSearch">
-      <input type="text" nz-input placeholder="input search text" [(ngModel)]="searchTerm" />
-    </nz-input-group>
-    <ng-template #suffixIconSearch>
-      <nz-icon nzType="search" />
-    </ng-template>
-  </nz-col>
-</nz-row>
+  <nz-row class="my-2" *ngIf="showSearchInput">
+    <nz-col [nzXs]="24" [nzSm]="12" [nzMd]="7" [nzLg]="7">
+      <nz-input-group [nzSuffix]="suffixIconSearch">
+        <input type="text" nz-input placeholder="search ... " [(ngModel)]="searchTerm" />
+      </nz-input-group>
+      <ng-template #suffixIconSearch>
+        <nz-icon nzType="search" />
+      </ng-template>
+    </nz-col>
+  </nz-row>
 
-<nz-table
-  #basicTable
-  [nzData]="tableData.dataSource | searchFilter:searchTerm"
-  [nzBordered]="true"
-  [nzSize]="'middle'"
-  [nzBordered]="true"
+  <nz-table #basicTable [nzData]="tableData.dataSource | searchFilter:searchTerm" [nzPageSize]="10"
+    [nzScroll]="{ x: '1000px' }" [nzShowPagination]="true" [nzSize]="'middle'" [nzBordered]="true">
+    <thead>
+      <tr>
+        <th *ngFor="let column of tableData.columns" [nzColumnKey]="column.key"
+          [nzSortFn]="column.key === 'startDateTime' ? column.sortByDate : null"
+          [nzShowSort]="column.key === 'startDateTime'">
+          {{ column.title }}
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let dataItem of basicTable.data">
+        <td *ngFor="let column of tableData.columns">
+          <ng-container *ngIf="templates[column.key]; else simpleColDef" [ngTemplateOutlet]="templates[column.key]"
+            [ngTemplateOutletContext]="{ dataItem: dataItem, column: column }">
+          </ng-container>
+          <ng-template #simpleColDef>
+            <span *ngIf="dataItem[column.key]">{{ dataItem[column.key] }}</span>
+            <span *ngIf="!dataItem[column.key]" class="text-muted">----</span>
+          </ng-template>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
 
->
-  <thead>
-    <tr>
-      <th
-      *ngFor="let column of tableData.columns"
-      [nzColumnKey]="column.key"
-      [nzSortFn]="column.key === 'startDateTime' ? column.sortByDate : null"
-      [nzShowSort]="column.key === 'startDateTime'"
-    >
-      {{ column.title }}
-    </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let dataItem of basicTable.data">
-      <td *ngFor="let column of tableData.columns">
-        <ng-container
-          *ngIf="templates[column.key]; else simpleColDef"
-          [ngTemplateOutlet]="templates[column.key]"
-          [ngTemplateOutletContext]="{ dataItem: dataItem, column: column }"
-        >
-        </ng-container>
-        <ng-template #simpleColDef>
-          <span *ngIf="dataItem[column.key]">{{ dataItem[column.key] }}</span>
-          <span *ngIf="!dataItem[column.key]" class="text-muted">----</span>
-        </ng-template>
-      </td>
-    </tr>
-  </tbody>
-  <!-- <tbody>
-    <tr *ngFor="let dataItem of basicTable.data">
-      <td *ngFor="let column of tableData.columns">
-        {{ dataItem[column.key] }}
-      </td>
-    </tr>
-  </tbody> -->
-</nz-table>
+</div>

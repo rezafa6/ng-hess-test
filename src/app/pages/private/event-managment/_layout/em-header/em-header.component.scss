@@ -1,6 +1,42 @@
 .header-wrapper {
+  padding: 0 16px;
   height: 32px !important;
+
   ul {
     line-height: 32px !important;
+  }
+
+  @media (max-width: 924px) {
+    .left-side.desktop-menu li:nth-child(n+2) {
+      display: none;
+    }
+
+    .desktop-menu {
+
+      span.text,
+      nz-icon[nzType="calendar"] {
+        display: none;
+      }
+
+      li {
+        padding: 0 8px !important;
+      }
+    }
+  }
+
+  .mobile-menu-button {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    .mobile-menu-button {
+      display: inline-flex !important;
+    }
+  }
+
+  @media (max-width: 375px) {
+   li[avatar] {
+    display: none;
+   }
   }
 }

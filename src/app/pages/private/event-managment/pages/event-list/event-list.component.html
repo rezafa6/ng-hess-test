@@ -3,96 +3,91 @@
 
 <!-- <button nz-button (click)="toggleTheme()">تغییر تم</button> -->
 
-@if(showConfetti()) {
-  <app-wellcome-confetti></app-wellcome-confetti>
-}
 
-@if(loading()) {
-  <nz-skeleton [nzParagraph]="{ rows: 5 }" [nzTitle]="false" [nzActive]="true"></nz-skeleton>
-}
+  @if(showConfetti()) {
+    <app-wellcome-confetti></app-wellcome-confetti>
+  }
 
-@if(!loading()) {
-  <div class="my-2 d-flex align-items-center">
-    <button nz-button nzType="primary" (click)="openCreateModal()">
-      <nz-icon nzType="plus" />
-      Add Event
-    </button>
-    <div class="mx-4">
-      <label>
-        <span class="mx-2">Show only Public</span>
-        <nz-switch [(ngModel)]="showOnlyPublic" (ngModelChange)="filterByPublic()"></nz-switch>
-      </label>
-    </div>
-  </div>
-}
+  @if(loading()) {
+    <nz-skeleton [nzParagraph]="{ rows: 5 }" [nzTitle]="false" [nzActive]="true"></nz-skeleton>
+  }
 
-
-@if(!loading() && tableData().dataSource.length < 1) {
-  <nz-empty [nzNotFoundContent]="'No Events Found'"></nz-empty>
-}
-
-
-<!-- <nz-tabs>
-  <nz-tab nzTitle="Tab 1">Content of Tab Pane 1</nz-tab>
-  <nz-tab nzTitle="Tab 2">Content of Tab Pane 2</nz-tab>
-  <nz-tab nzTitle="Tab 3">Content of Tab Pane 3</nz-tab>
-</nz-tabs> -->
-
-@if(!loading() && tableData().dataSource.length > 0) {
-  <app-master-table [tableData]="tableData()" [showSearchInput]="true">
-
-    <!-- Title & Primary Image  -->
-    <ng-template colDef="title" let-dataItem="dataItem">
-      <div class="d-flex align-items-center">
-        <img
-        nz-tooltip
-        nzTooltipTitle="Click To View"
-        nzTooltipPlacement="top"
-        coverImage
-        nz-image
-        width="42px"
-        height="42px"
-        [nzSrc]="dataItem.primaryImageUrl"
-        [alt]="dataItem.title + ' cover image'"
-        nzSrc="error" [nzFallback]="fallbackImage"
-
-      />
-        <h5 class="mx-1">{{ dataItem.title }}</h5>
+  @if(!loading()) {
+    <div class="my-2 d-flex align-items-center">
+      <button nz-button nzType="primary" (click)="openCreateModal()">
+        <nz-icon nzType="plus" />
+        Add Event
+      </button>
+      <div class="mx-4">
+        <label>
+          <span class="mx-2">Show only Public</span>
+          <nz-switch [(ngModel)]="showOnlyPublic" (ngModelChange)="filterByPublic()"></nz-switch>
+        </label>
       </div>
-    </ng-template>
-    <!-- Start Date -->
-    <ng-template colDef="startDateTime" let-dataItem="dataItem">
-      <h5>{{ dataItem.startDateTime | date:'dd/MM/yyyy HH:mm' }}</h5>
-    </ng-template>
+    </div>
+  }
 
-    <!-- public private -->
-     <ng-template colDef="isPublic" let-dataItem="dataItem">
 
-        @if(dataItem.isPublic) {
-        <nz-tag nzColor="green">
-          <i nz-icon nzType="check-circle" nzTheme="outline"></i>
-          Public
+  @if(!loading() && tableData().dataSource.length < 1) {
+    <nz-empty [nzNotFoundContent]="'No Events Found'"></nz-empty>
+  }
+
+
+  @if(!loading() && tableData().dataSource.length > 0) {
+    <app-master-table [tableData]="tableData()" [showSearchInput]="true">
+
+      <!-- Title & Primary Image  -->
+      <ng-template colDef="title" let-dataItem="dataItem">
+        <div class="d-flex align-items-center">
+          <img
+          nz-tooltip
+          nzTooltipTitle="Click To View"
+          nzTooltipPlacement="top"
+          coverImage
+          nz-image
+          width="42px"
+          height="42px"
+          [nzSrc]="dataItem.primaryImageUrl"
+          [alt]="dataItem.title + ' cover image'"
+          nzSrc="error" [nzFallback]="fallbackImage"
+
+        />
+          <h5 class="mx-1">{{ dataItem.title }}</h5>
+        </div>
+      </ng-template>
+      <!-- Start Date -->
+      <ng-template colDef="startDateTime" let-dataItem="dataItem">
+        <h5>{{ dataItem.startDateTime | date:'dd/MM/yyyy HH:mm' }}</h5>
+      </ng-template>
+
+      <!-- public private -->
+       <ng-template colDef="isPublic" let-dataItem="dataItem">
+
+          @if(dataItem.isPublic) {
+          <nz-tag nzColor="green">
+            <i nz-icon nzType="check-circle" nzTheme="outline"></i>
+            Public
+          </nz-tag>
+        } @else {
+          <nz-tag nzColor="red">
+          <i nz-icon nzType="close-circle" nzTheme="outline"></i>
+          Private
         </nz-tag>
-      } @else {
-        <nz-tag nzColor="red">
-        <i nz-icon nzType="close-circle" nzTheme="outline"></i>
-        Private
-      </nz-tag>
-      }
-     </ng-template>
+        }
+       </ng-template>
 
-    <!-- Actions -->
-    <ng-template colDef="actions" let-dataItem="dataItem">
-      <button nz-button  nzShape="circle"  class="mx-2" nz-tooltip (click)="prepareToEditEvent(dataItem)"
-      nzTooltipTitle="Click To Edit {{dataItem.title}}" >
-        <nz-icon nzType="edit" nzTheme="outline" />
-      </button>
-      <button nz-button  nzShape="circle"  class="mx-2" nz-tooltip nzTooltipTitle="Click To View {{dataItem.title}} Info" (click)="eventInfoBtnClicked(dataItem)">
-        <nz-icon nzType="info-circle" nzTheme="outline" />
-      </button>
-      <button nz-button nzShape="circle"  class="mx-2" nzDanger  nz-tooltip nzTooltipTitle="Click To Delete {{dataItem.title}}" (click)="deleteEventBtnClicked(dataItem.id)">
-          <nz-icon nzType="delete" nzTheme="outline" />
-      </button>
-    </ng-template>
-  </app-master-table>
-}
+      <!-- Actions -->
+      <ng-template colDef="actions" let-dataItem="dataItem">
+        <button nz-button  nzShape="circle"  class="mx-2" nz-tooltip (click)="prepareToEditEvent(dataItem)"
+        nzTooltipTitle="Click To Edit {{dataItem.title}}" >
+          <nz-icon nzType="edit" nzTheme="outline" />
+        </button>
+        <button nz-button  nzShape="circle"  class="mx-2" nz-tooltip nzTooltipTitle="Click To View {{dataItem.title}} Info" (click)="eventInfoBtnClicked(dataItem)">
+          <nz-icon nzType="info-circle" nzTheme="outline" />
+        </button>
+        <button nz-button nzShape="circle"  class="mx-2" nzDanger  nz-tooltip nzTooltipTitle="Click To Delete {{dataItem.title}}" (click)="deleteEventBtnClicked(dataItem.id)">
+            <nz-icon nzType="delete" nzTheme="outline" />
+        </button>
+      </ng-template>
+    </app-master-table>
+  }

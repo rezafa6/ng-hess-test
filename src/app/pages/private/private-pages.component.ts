@@ -9,18 +9,10 @@ import { DrawerService } from "../../common/services/drawer-service";
   imports: [
     SharedModule , NzButtonModule , NzDrawerModule
   ],
-  providers: [DrawerService],
+  providers: [],
   templateUrl: "./private-pages.component.html",
   styleUrl: "./private-pages.component.scss",
   standalone: true,
 
 })
-export class PrivatePagesComponent {
- constructor(
-  private _router: Router
- ){
-  setTimeout(() => {
-    this._router.navigateByUrl('/p/event-management')
-  } , 150)
- }
-}
+export class PrivatePagesComponent {}
