@@ -1,11 +1,12 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { EventModel } from '../../../../../../common/models/event.model';
+import { EventModel } from '../../../../../../../common/models/event.model';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzTagModule } from 'ng-zorro-antd/tag';
 import { DatePipe } from '@angular/common';
 import { NzImageModule } from 'ng-zorro-antd/image';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 
 const nzModules = [
@@ -27,6 +28,17 @@ export class EventCardViewComponent {
   @Output() cardDeleteEmitter = new EventEmitter<EventModel>();
   @Output() cardEditEmitter = new EventEmitter<EventModel>();
   @Output() cardViewEmitter = new EventEmitter<EventModel>();
+
+  constructor(private _message: NzMessageService) {}
+
+  // #region Copy Event Link
+  copyEventLink(id: string | undefined) {
+    if(!id) return;
+    const eventLink = `${window.location.href}?eventId=${id}`;
+    navigator.clipboard.writeText(eventLink);
+    this._message.success('Event link copied to clipboard');
+  }
+  // #endregion
 
   // #region Fallback Image
   fallbackImage: string =

@@ -1,4 +1,4 @@
-import { SharedModule } from './../../../../../../common/shared.module';
+import { SharedModule } from '../../../../../../../common/shared.module';
 import { Component, OnInit } from '@angular/core';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzFormModule } from 'ng-zorro-antd/form';

@@ -58,7 +58,7 @@
             width="42px"
             height="42px"
             [nzSrc]="dataItem.primaryImageUrl"
-            [alt]="dataItem.title + ' cover image'"
+            [alt]="dataItem.title + ' primary image'"
             nzSrc="error" [nzFallback]="fallbackImage"
 
           />
@@ -77,6 +77,7 @@
               <i nz-icon nzType="check-circle" nzTheme="outline"></i>
               Public
             </nz-tag>
+            <nz-icon nzType="copy" nzTheme="outline" nz-tooltip nzTooltipTitle="Copy Event Link" (click)="copyEventLink(dataItem.id)" />
           } @else {
             <nz-tag nzColor="red">
             <i nz-icon nzType="close-circle" nzTheme="outline"></i>
