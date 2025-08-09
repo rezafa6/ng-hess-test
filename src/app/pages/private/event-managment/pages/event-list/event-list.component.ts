@@ -23,14 +23,17 @@ import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { FormsModule } from '@angular/forms';
 import { EventModel } from '../../../../../common/models/event.model';
-// import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { SharedModule } from '../../../../../common/shared.module';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzGridModule } from 'ng-zorro-antd/grid';
 
 const antDesignModules = [
   NzButtonModule, NzIconModule, NzModalModule,
    NzImageModule, NzSpinModule, NzToolTipModule,
     NzSkeletonModule, NzTagModule, NzEmptyModule,
     NzSwitchModule,
+    NzCardModule,
+    NzGridModule
     // NzTabsModule
 
   ]
@@ -50,7 +53,7 @@ export class EventListComponent implements AfterViewInit, OnInit {
   showConfetti = signal(true);
   editMode: boolean = false;
   loading = signal(false);
-  originalDataSource = []  
+  originalDataSource: EventModel[] = [];
 
   tableData = signal({
     columns: [
@@ -65,7 +68,7 @@ export class EventListComponent implements AfterViewInit, OnInit {
       { key: 'isPublic', title: 'Public', isShow: true },
       { key: 'actions', title: 'Actions', isShow: true },
     ],
-    dataSource: []
+    dataSource: [] as EventModel[]
   });
 
   constructor(
@@ -124,8 +127,9 @@ export class EventListComponent implements AfterViewInit, OnInit {
   // #endregion
 
   // #region Delete Event
-  deleteEventBtnClicked(id: string) {
-    this._confirmService.confirm('Confirm Delete', 'Are you sure you want to delete this event ?')
+  deleteEventBtnClicked(id: string|undefined) {
+    if(id) {
+      this._confirmService.confirm('Confirm Delete', 'Are you sure you want to delete this event ?')
       .subscribe(result => {
         if (result) {
           this.tableData.update((items: any) => ({
@@ -134,11 +138,12 @@ export class EventListComponent implements AfterViewInit, OnInit {
           }));
         }
       });
+    }
   }
   // #endregion
 
   // #region Event Info
-  eventInfoBtnClicked(rowData: any) {
+  eventInfoBtnClicked(rowData: EventModel) {
     this._drawerService.open(EventDetailSidebarComponent,'Event Info', rowData , {
       width: 850
     })
@@ -150,7 +155,7 @@ export class EventListComponent implements AfterViewInit, OnInit {
 
   // #region Open Create and Edit Modal
 
-  prepareToEditEvent(event: any) {
+  prepareToEditEvent(event: EventModel) {
     const eventData = {
       id: event.id,
       title: event.title,

@@ -18,7 +18,7 @@ export class DrawerService {
       nzContent: component,
       nzContentParams: { data },
       nzPlacement: configs.placement || 'right',
-      nzWidth: configs.width || 400,
+      nzWidth: window.innerWidth > 768 ? configs.width || 400 : '100%',
       nzClosable: configs.closable || true
     });
 
