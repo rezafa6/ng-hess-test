@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, signal, OnInit } from '@angular/core';
+import { AfterViewInit, Component, signal, OnInit, OnDestroy } from '@angular/core';
 import { MasterTableComponent } from '../../../../../common/components/master-table/master-table.component';
 import { ColDefDirective } from '../../../../../common/directives/col-def.directive';
 import { WellcomeConfettiComponent } from '../../../../../common/components/wellcome-confetti/wellcome-confetti.component';
@@ -46,7 +46,7 @@ const components = [
   styleUrl: './event-list.component.scss',
 
 })
-export class EventListComponent implements AfterViewInit, OnInit {
+export class EventListComponent implements AfterViewInit, OnInit, OnDestroy {
 
   private _destroy$ = new Subject<void>();
   showOnlyPublic = signal(false);
@@ -104,6 +104,12 @@ export class EventListComponent implements AfterViewInit, OnInit {
         }
       }
     )
+  }
+
+  ngOnDestroy(): void {
+    try {
+        this.querySubscription.unsubscribe();
+    } catch (error) {}
   }
 
   // #region Get Events Table Data
@@ -192,9 +198,7 @@ export class EventListComponent implements AfterViewInit, OnInit {
     this.editMode = true;
     this.openCreateModal(eventData);
   }
-  toggleTheme(): void {
-    document.body.classList.toggle('dark');
-  }
+
   openCreateModal(eventData: any = null) {
     const modalRef = this._modal.create({
       nzTitle: this.editMode ? `Edit ${eventData.title} Event` : 'Create New Event',
@@ -235,9 +239,6 @@ export class EventListComponent implements AfterViewInit, OnInit {
           tickets: [],
           leads: [],
           status: 'Active',
-          // organizer: {
-          //   businessName: 'Organizer@name.com',
-          // }
         }
         this.tableData.update((current: any) => ({
           ...current,

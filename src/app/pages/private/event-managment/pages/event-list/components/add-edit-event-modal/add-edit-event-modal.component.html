@@ -1,5 +1,4 @@
 <div>
-  <!-- <h3>{{ title }}</h3> -->
 
   <form nz-form [formGroup]="form">
     <!-- #Start Title -->
@@ -76,10 +75,10 @@
     <!-- #Start Primary Image -->
     <nz-form-item>
       <nz-form-label [nzSpan]="6">Upload Primary Image</nz-form-label>
-      <nz-form-control [nzSpan]="18">
+      <nz-form-control [nzSpan]="18" [nzValidateStatus]="isInvalid('primaryImageUrl') ? 'error' : 'success'">
         <nz-upload [nzListType]="'picture-card'" [nzFileList]="primaryImageFileList" [nzAccept]="'.jpg,.jpeg,.png'"
           [nzMultiple]="false" [nzShowUploadList]="{ showRemoveIcon: true, showPreviewIcon: false}"
-          (nzChange)="onUploadZoneChanged($event , UploadZoneType.PRIMARY_IMAGE)" 
+          (nzChange)="onUploadZoneChanged($event , UploadZoneType.PRIMARY_IMAGE)"
           [nzShowButton]="primaryImageFileList.length < 1">
           <ng-container *ngIf="primaryImageFileList.length === 0">
             <div class="upload-zone">
@@ -89,6 +88,11 @@
             </div>
           </ng-container>
         </nz-upload>
+        @if(isInvalid('primaryImageUrl')) {
+          <nz-typography [nzType]="'danger'">
+            Primary Image is required
+          </nz-typography>
+          }
       </nz-form-control>
     </nz-form-item>
     <!-- #End Primary Image -->

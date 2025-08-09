@@ -37,7 +37,9 @@
           <i nz-icon nzType="check-circle" nzTheme="outline"></i>
           Public
         </nz-tag>
-        <nz-icon nzType="copy" nzTheme="outline" nz-tooltip nzTooltipTitle="Copy Event Link" (click)="copyEventLink(event.id || '')" />
+        <button nz-button nzType="primary" nzSize="small" (click)="copyEventLink(event.id || '')">
+          <nz-icon nzType="copy" nzTheme="outline" nz-tooltip nzTooltipTitle="Copy Event Link" />
+        </button>
       } @else {
         <nz-tag nzColor="red">
         <i nz-icon nzType="close-circle" nzTheme="outline"></i>

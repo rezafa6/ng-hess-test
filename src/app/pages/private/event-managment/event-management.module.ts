@@ -6,7 +6,6 @@ import { DrawerService } from "../../../common/services/drawer-service";
 import { NzDrawerService } from "ng-zorro-antd/drawer";
 
 @NgModule({
-
   imports: [
     SharedModule,
     EventManagmentRoutingModule,

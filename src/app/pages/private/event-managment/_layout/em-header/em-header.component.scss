@@ -4,6 +4,12 @@
 
   ul {
     line-height: 32px !important;
+    .ant-menu-item-selected {
+      color: #000;
+      nz-icon {
+        color: #000 !important;
+      }
+    }
   }
 
   @media (max-width: 924px) {

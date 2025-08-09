@@ -7,7 +7,7 @@
 
 
 // General
-@primary-color: #3f51b5; //#8f0045;// #004646;
+@primary-color: #2bcfa1; //#8f0045;// #004646;
 @border-radius-base: 8px;
 @border-radius-sm: 5px;
 @background-color-base: #101414;
@@ -17,6 +17,9 @@ body.dark {
   background-color: @background-color-base;
 }
 
+nz-content {
+  background-color: #1B1B1B !important;
+}
 
 // Buttons
 @btn-shadow: 0 2px 2px rgba(0, 0, 0, 0.025);
@@ -39,7 +42,9 @@ body.dark {
 .ant-tabs-tab-active .ant-tabs-tab-btn a {
   color: @primary-color;
 }
-
+button[nzType="primary"] {
+  color: #222 !important;
+}
 // Tables
 @table-header-bg: #171d2b;
 

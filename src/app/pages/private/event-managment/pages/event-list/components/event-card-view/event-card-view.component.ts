@@ -8,7 +8,6 @@ import { DatePipe } from '@angular/common';
 import { NzImageModule } from 'ng-zorro-antd/image';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
-
 const nzModules = [
   NzCardModule,
   NzGridModule,

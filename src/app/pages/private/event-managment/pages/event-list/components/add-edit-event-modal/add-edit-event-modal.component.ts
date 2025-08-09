@@ -9,6 +9,7 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzUploadFile, NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 const antDesignModules = [NzFormModule, NzInputModule, NzButtonModule, NzTypographyModule, NzUploadModule, NzSwitchModule , NzDatePickerModule]
 
@@ -42,7 +43,10 @@ export class AddEditEventModalComponent implements OnInit  {
   primaryImageFileList: NzUploadFile[] = [];
   coverImageFileList: NzUploadFile[] = [];
 
-  constructor(private modalRef: NzModalRef) {}
+  constructor(
+    private modalRef: NzModalRef ,
+    private _message: NzMessageService
+    ) {}
 
   ngOnInit(): void {
     setTimeout(() => {
@@ -115,6 +119,19 @@ export class AddEditEventModalComponent implements OnInit  {
   }
 
   onSaveBtnClicked(): void {
+    if(this.form.invalid) {
+      this.form.markAllAsTouched();
+      this._message.error('Please fill all the required fields');
+      return;
+    }
+    if(!this.coverImageFileList.length) {
+      this._message.error('Please upload a cover image');
+      return;
+    }
+    if(!this.primaryImageFileList.length) {
+      this._message.error('Please upload a primary image');
+      return;
+    }
     this.modalRef.close({result: this.form.value , editMode: this.editMode});
   }
 

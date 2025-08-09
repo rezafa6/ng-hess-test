@@ -1,9 +1,4 @@
 
-
-
-<!-- <button nz-button (click)="toggleTheme()">تغییر تم</button> -->
-
-
   @if(showConfetti()) {
     <app-wellcome-confetti></app-wellcome-confetti>
   }
@@ -27,11 +22,7 @@
     </div>
   }
 
-
-  @if(!loading() && tableData().dataSource.length < 1) {
-    <nz-empty [nzNotFoundContent]="'No Events Found'"></nz-empty>
-  }
-
+  @if(!loading() && tableData().dataSource.length) {
   <nz-tabset>
     <nz-tab nzTitle="Table View">
       <ng-container *ngTemplateOutlet="masterTable"></ng-container>
@@ -40,10 +31,14 @@
       <ng-container *ngTemplateOutlet="gridView"></ng-container>
     </nz-tab>
   </nz-tabset>
+}
+
+  @if(!loading() && !tableData().dataSource.length) {
+    <nz-empty [nzNotFoundContent]="'No Events Found'"></nz-empty>
+  }
 
 <!-- #region Table View -->
   <ng-template #masterTable>
-    @if(!loading() && tableData().dataSource.length > 0) {
       <app-master-table [tableData]="tableData()" [showSearchInput]="true">
 
         <!-- Title & Primary Image  -->
@@ -102,7 +97,6 @@
           </button>
         </ng-template>
       </app-master-table>
-    }
   </ng-template>
 <!-- #endregion -->
 
