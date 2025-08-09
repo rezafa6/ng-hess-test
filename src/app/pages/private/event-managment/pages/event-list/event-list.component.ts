@@ -22,20 +22,25 @@ import { NzEmptyModule } from 'ng-zorro-antd/empty';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { FormsModule } from '@angular/forms';
+import { EventModel } from '../../../../../common/models/event.model';
+// import { NzTabsModule } from 'ng-zorro-antd/tabs';
+import { SharedModule } from '../../../../../common/shared.module';
 
 const antDesignModules = [
   NzButtonModule, NzIconModule, NzModalModule,
    NzImageModule, NzSpinModule, NzToolTipModule,
     NzSkeletonModule, NzTagModule, NzEmptyModule,
     NzSwitchModule,
+    // NzTabsModule
 
   ]
 
 @Component({
   selector: 'app-event-list',
-  imports: [FormsModule , MasterTableComponent, ColDefDirective, WellcomeConfettiComponent, DatePipe, ...antDesignModules],
+  imports: [FormsModule , MasterTableComponent, ColDefDirective, WellcomeConfettiComponent, DatePipe, SharedModule, ...antDesignModules],
   templateUrl: './event-list.component.html',
-  styleUrl: './event-list.component.scss'
+  styleUrl: './event-list.component.scss',
+
 })
 export class EventListComponent implements AfterViewInit, OnInit {
 
@@ -189,7 +194,7 @@ export class EventListComponent implements AfterViewInit, OnInit {
           return;
         }
         // create new event
-        const newEvent = {
+        const newEvent : EventModel = {
           title: result.title,
           description: result.description,
           location: result.location,

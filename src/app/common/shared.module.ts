@@ -6,6 +6,7 @@ import { FormsModule } from "@angular/forms";
 import { NzIconModule } from "ng-zorro-antd/icon";
 import { NzPipesModule } from "ng-zorro-antd/pipes";
 import { NzSwitchModule } from "ng-zorro-antd/switch";
+  import { NzTabsModule } from "ng-zorro-antd/tabs";
 import { ColDefDirective } from "./directives/col-def.directive";
 import { SearchFilterPipe } from "./pipes/search-filter.pipe";
 
@@ -19,6 +20,7 @@ import { SearchFilterPipe } from "./pipes/search-filter.pipe";
     NzIconModule,
     NzPipesModule,
     NzSwitchModule,
+    NzTabsModule,
     ColDefDirective,
     SearchFilterPipe
   ],
@@ -30,6 +32,7 @@ import { SearchFilterPipe } from "./pipes/search-filter.pipe";
     TranslateDirective,
     NzIconModule,
     NzSwitchModule,
+    NzTabsModule,
     SearchFilterPipe
   ],
 })

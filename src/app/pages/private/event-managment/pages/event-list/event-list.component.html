@@ -31,6 +31,13 @@
   <nz-empty [nzNotFoundContent]="'No Events Found'"></nz-empty>
 }
 
+
+<!-- <nz-tabs>
+  <nz-tab nzTitle="Tab 1">Content of Tab Pane 1</nz-tab>
+  <nz-tab nzTitle="Tab 2">Content of Tab Pane 2</nz-tab>
+  <nz-tab nzTitle="Tab 3">Content of Tab Pane 3</nz-tab>
+</nz-tabs> -->
+
 @if(!loading() && tableData().dataSource.length > 0) {
   <app-master-table [tableData]="tableData()" [showSearchInput]="true">
 
