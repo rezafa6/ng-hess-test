@@ -15,5 +15,5 @@ export interface EventModel {
   tickets: any[];
   leads: any[];
   status: 'Active' | 'Inactive';
-  organizer: Record<string, any>;
+  organizer?: Record<string, any>;
 }

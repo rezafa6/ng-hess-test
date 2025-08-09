@@ -25,37 +25,10 @@
 </div>
 
 
-<!-- <div >
-  <div class="p-4">
-    <div>
-      <h2> <nz-icon nzType="radius-upright" nzTheme="outline" /> Tickets</h2>
-    </div>
-    @for(ticket of data.tickets; track ticket.id) {
-      <div>
-        <h3>{{ticket.ticketName}}</h3>
-        <h4>{{ticket.price}} {{ticket.currency}}</h4>
-      </div>
-    }
-  </div>
-</div>
-
-
-
-<div>
-  <div class="p-4">
-    <div>
-      <h2> <nz-icon nzType="user" nzTheme="outline" /> Organizer</h2>
-    </div>
-    <div>
-      {{data.organizer.businessName}}
-    </div>
-  </div>
-</div> -->
-
 <nz-row [nzGutter]="24">
   <!-- Tickets -->
   <nz-col [nzSpan]="8">
-    <div class="p-4 bg-white rounded shadow-sm">
+    <div class="p-4 text-center">
       <div>
         <h2>
           <nz-icon nzType="radius-upright" nzTheme="outline"></nz-icon>
@@ -73,16 +46,20 @@
 
   <!-- Organizer -->
   <nz-col [nzSpan]="8">
-    <div class="p-4 bg-white rounded shadow-sm">
+    <div class="p-4 text-center">
       <div>
         <h2>
           <nz-icon nzType="user" nzTheme="outline"></nz-icon>
           Organizer
         </h2>
       </div>
-      <div>
-        {{ data.organizer.businessName }}
-      </div>
+      @if(data.organizer && data.organizer.businessName) {
+        <div>
+          {{ data.organizer.businessName }}
+        </div>
+      } @else {
+        <nz-empty [nzNotFoundContent]="'No Organizer Found'"></nz-empty>
+      }
     </div>
   </nz-col>
 

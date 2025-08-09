@@ -12,6 +12,7 @@
                  nz-input
                  formControlName="email"
                  id="email"
+                 autocomplete="new-email"
                  placeholder="{{ 'common.EmailAddress' | translate }}"
                  nzSize="large"/>
         </nz-form-control>
@@ -25,6 +26,7 @@
           <nz-input-group nzSize="large" [nzSuffix]="suffixTemplate">
             <input [type]="passwordVisible() ? 'text' : 'password'"
                    nz-input
+                   autocomplete="new-password"
                    placeholder="{{ 'common.Password' | translate }}"
                    formControlName="password"
                    id="password"/>

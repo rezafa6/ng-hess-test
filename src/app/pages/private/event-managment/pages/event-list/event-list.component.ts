@@ -223,6 +223,7 @@ export class EventListComponent implements AfterViewInit, OnInit {
         }
         // create new event
         const newEvent: EventModel = {
+          id: this.generateRandomString(32),
           title: result.title,
           description: result.description,
           location: result.location,
@@ -234,9 +235,9 @@ export class EventListComponent implements AfterViewInit, OnInit {
           tickets: [],
           leads: [],
           status: 'Active',
-          organizer: {
-            businessName: 'Organizer@name.com',
-          }
+          // organizer: {
+          //   businessName: 'Organizer@name.com',
+          // }
         }
         this.tableData.update((current: any) => ({
           ...current,
@@ -274,6 +275,17 @@ export class EventListComponent implements AfterViewInit, OnInit {
     this._message.success('Event link copied to clipboard');
   }
   // #endregion
+
+  generateRandomString(length: number = 32) {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    const charactersLength = characters.length;
+
+    for (let i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+  }
 
   // #region Fallback Image
   fallbackImage: string =
