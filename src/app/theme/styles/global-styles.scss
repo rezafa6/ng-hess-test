@@ -111,6 +111,21 @@
   position: relative;
   margin: 0 auto;
 }
+// flex
+
+.d-flex {
+  display: flex;
+}
+.align-items-center {
+  align-items: center;
+}
+.justify-content-center {
+  justify-content: center;
+}
+.justify-content-between {
+  justify-content: space-between;
+}
+
 @media screen and (max-width: $screen-laptop) {
   .responsive-container {
     max-width: $screen-laptop-width;
@@ -130,19 +145,4 @@
 ::ng-deep .custom-avatar img {
   object-fit: contain !important;
   background-color: $background-light;
-}
-
-// flex
-
-.d-flex {
-  display: flex;
-}
-.align-items-center {
-  align-items: center;
-}
-.justify-content-center {
-  justify-content: center;
-}
-.justify-content-between {
-  justify-content: space-between;
 }

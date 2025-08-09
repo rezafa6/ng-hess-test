@@ -1,19 +1,38 @@
+<!-- <input type="text" [(ngModel)]="searchTerm" placeholder="Search..." class="mb-3 form-control" /> -->
+
+<nz-row class="my-2" *ngIf="showSearchInput">
+  <nz-col [nzSpan]="7">  
+    <nz-input-group [nzSuffix]="suffixIconSearch">
+      <input type="text" nz-input placeholder="input search text" [(ngModel)]="searchTerm" />
+    </nz-input-group>
+    <ng-template #suffixIconSearch>
+      <nz-icon nzType="search" />
+    </ng-template>
+  </nz-col>
+</nz-row>
+
 <nz-table
   #basicTable
-  [nzData]="tableData.dataSource"
+  [nzData]="tableData.dataSource | searchFilter:searchTerm"
   [nzBordered]="true"
   [nzSize]="'middle'"
   [nzBordered]="true"
+
 >
   <thead>
     <tr>
-      <th *ngFor="let column of tableData.columns">
-        {{ column.title }}
-      </th>
+      <th
+      *ngFor="let column of tableData.columns"
+      [nzColumnKey]="column.key"
+      [nzSortFn]="column.key === 'startDateTime' ? column.sortByDate : null"
+      [nzShowSort]="column.key === 'startDateTime'"
+    >
+      {{ column.title }}
+    </th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let dataItem of tableData.dataSource">
+    <tr *ngFor="let dataItem of basicTable.data">
       <td *ngFor="let column of tableData.columns">
         <ng-container
           *ngIf="templates[column.key]; else simpleColDef"
@@ -28,4 +47,11 @@
       </td>
     </tr>
   </tbody>
+  <!-- <tbody>
+    <tr *ngFor="let dataItem of basicTable.data">
+      <td *ngFor="let column of tableData.columns">
+        {{ dataItem[column.key] }}
+      </td>
+    </tr>
+  </tbody> -->
 </nz-table>

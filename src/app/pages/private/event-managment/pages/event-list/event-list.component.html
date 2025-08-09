@@ -1,3 +1,8 @@
+
+
+
+<!-- <button nz-button (click)="toggleTheme()">تغییر تم</button> -->
+
 @if(showConfetti()) {
   <app-wellcome-confetti></app-wellcome-confetti>
 }
@@ -6,19 +11,28 @@
   <nz-skeleton [nzParagraph]="{ rows: 5 }" [nzTitle]="false" [nzActive]="true"></nz-skeleton>
 }
 
-<div class="my-2">
-  <button nz-button nzType="primary" (click)="openCreateModal()">
-    <nz-icon nzType="plus" />
-    Add Event
-  </button>
-</div>
+@if(!loading()) {
+  <div class="my-2 d-flex align-items-center">
+    <button nz-button nzType="primary" (click)="openCreateModal()">
+      <nz-icon nzType="plus" />
+      Add Event
+    </button>
+    <div class="mx-4">
+      <label>
+        <span class="mx-2">Show only Public</span>
+        <nz-switch [(ngModel)]="showOnlyPublic" (ngModelChange)="filterByPublic()"></nz-switch>
+      </label>
+    </div>
+  </div>
+}
+
 
 @if(!loading() && tableData().dataSource.length < 1) {
   <nz-empty [nzNotFoundContent]="'No Events Found'"></nz-empty>
 }
 
 @if(!loading() && tableData().dataSource.length > 0) {
-  <app-master-table [tableData]="tableData()">
+  <app-master-table [tableData]="tableData()" [showSearchInput]="true">
 
     <!-- Title & Primary Image  -->
     <ng-template colDef="title" let-dataItem="dataItem">
@@ -33,10 +47,10 @@
         height="42px"
         [nzSrc]="dataItem.primaryImageUrl"
         [alt]="dataItem.title + ' cover image'"
+        nzSrc="error" [nzFallback]="fallbackImage"
 
       />
         <h5 class="mx-1">{{ dataItem.title }}</h5>
-<!--         nzSrc="error" [nzFallback]="fallbackImage" -->
       </div>
     </ng-template>
     <!-- Start Date -->
@@ -75,10 +89,3 @@
     </ng-template>
   </app-master-table>
 }
-
-
-<!-- <nz-tag nzColor="orange">
-  <i nz-icon nzType="exclamation-circle" nzTheme="outline"></i>
-  Pending
-</nz-tag> -->
-

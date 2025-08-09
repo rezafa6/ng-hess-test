@@ -5,7 +5,9 @@ import { RouterModule } from "@angular/router";
 import { FormsModule } from "@angular/forms";
 import { NzIconModule } from "ng-zorro-antd/icon";
 import { NzPipesModule } from "ng-zorro-antd/pipes";
+import { NzSwitchModule } from "ng-zorro-antd/switch";
 import { ColDefDirective } from "./directives/col-def.directive";
+import { SearchFilterPipe } from "./pipes/search-filter.pipe";
 
 @NgModule({
   imports: [
@@ -16,7 +18,9 @@ import { ColDefDirective } from "./directives/col-def.directive";
     TranslateDirective,
     NzIconModule,
     NzPipesModule,
-    ColDefDirective
+    NzSwitchModule,
+    ColDefDirective,
+    SearchFilterPipe
   ],
   exports: [
     CommonModule,
@@ -25,6 +29,8 @@ import { ColDefDirective } from "./directives/col-def.directive";
     TranslatePipe,
     TranslateDirective,
     NzIconModule,
+    NzSwitchModule,
+    SearchFilterPipe
   ],
 })
 export class SharedModule {}

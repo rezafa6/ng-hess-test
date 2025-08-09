@@ -20,6 +20,9 @@
             "outputPath": "dist/event-organizer",
             "index": "src/index.html",
             "browser": "src/main.ts",
+            "stylePreprocessorOptions": {
+              "includePaths": ["src"]
+            },
             "polyfills": [
               "zone.js"
             ],
