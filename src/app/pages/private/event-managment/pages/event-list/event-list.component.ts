@@ -24,8 +24,6 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { FormsModule } from '@angular/forms';
 import { EventModel } from '../../../../../common/models/event.model';
 import { SharedModule } from '../../../../../common/shared.module';
-import { NzCardModule } from 'ng-zorro-antd/card';
-import { NzGridModule } from 'ng-zorro-antd/grid';
 import { EventCardViewComponent } from '../common/event-card-view/event-card-view.component';
 
 const antDesignModules = [
@@ -33,10 +31,6 @@ const antDesignModules = [
    NzImageModule, NzSpinModule, NzToolTipModule,
     NzSkeletonModule, NzTagModule, NzEmptyModule,
     NzSwitchModule,
-    NzCardModule,
-    NzGridModule
-    // NzTabsModule
-
   ]
 
 @Component({

@@ -9,12 +9,12 @@
       class="my-2"
     >
       <nz-card
-        style="width:100%; min-height: 250px;"
+        style="width:100%; min-height: 310px;"
         [nzCover]="coverTemplate"
         [nzExtra]="extraTemplate"
         [nzActions]="[actionSetting, actionEdit, actionEllipsis]"
       >
-        <nz-card-meta
+        <nz-card-meta 
           [nzTitle]="event.title"
           [nzDescription]="descriptionTemplate"
           [nzAvatar]="avatarTemplate"
@@ -23,7 +23,8 @@
     </nz-col>
 
     <ng-template #descriptionTemplate>
-      {{event.description}}
+      <!-- show 5 words of description -->
+      {{event.description ? (event.description.split(' ').length > 5 ? event.description.split(' ').slice(0, 5).join(' ') + '...' : event.description) : 'No description'}}
       <br>
       {{event.startDateTime | date:'dd/MM/yyyy HH:mm'}} - {{event.endDateTime | date:'dd/MM/yyyy HH:mm'}}
     </ng-template>
@@ -45,8 +46,6 @@
     </ng-template>
 
     <ng-template #coverTemplate>
-      <img alt="example" src="{{event.primaryImageUrl}}" />
-
       <img
       nz-tooltip
       nzTooltipTitle="Click To View"
@@ -56,12 +55,10 @@
       [nzSrc]="event.coverImageUrl || ''"
       [nzFallback]="fallbackImage"
       >
-
     </ng-template>
 
     <ng-template #actionSetting>
       <nz-icon
-
       (click)="cardDeleteEmitter.emit(event)" nzType="delete"></nz-icon>
     </ng-template>
     <ng-template #actionEdit>
