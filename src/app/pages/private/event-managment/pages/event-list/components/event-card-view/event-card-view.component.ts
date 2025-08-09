@@ -7,13 +7,15 @@ import { NzTagModule } from 'ng-zorro-antd/tag';
 import { DatePipe } from '@angular/common';
 import { NzImageModule } from 'ng-zorro-antd/image';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzButtonModule } from 'ng-zorro-antd/button';
 
 const nzModules = [
   NzCardModule,
   NzGridModule,
   NzIconModule,
   NzTagModule,
-  NzImageModule
+  NzImageModule,
+  NzButtonModule
 ]
 
 @Component({
