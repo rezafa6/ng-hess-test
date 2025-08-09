@@ -1,0 +1,74 @@
+<nz-row [nzGutter]="16">
+  @for (event of cardData; track event.id) {
+    <nz-col
+      [nzXs]="24"
+      [nzSm]="12"
+      [nzMd]="8"
+      [nzLg]="6"
+      [nzXl]="6"
+      class="my-2"
+    >
+      <nz-card
+        style="width:100%; min-height: 250px;"
+        [nzCover]="coverTemplate"
+        [nzExtra]="extraTemplate"
+        [nzActions]="[actionSetting, actionEdit, actionEllipsis]"
+      >
+        <nz-card-meta
+          [nzTitle]="event.title"
+          [nzDescription]="descriptionTemplate"
+          [nzAvatar]="avatarTemplate"
+        ></nz-card-meta>
+      </nz-card>
+    </nz-col>
+
+    <ng-template #descriptionTemplate>
+      {{event.description}}
+      <br>
+      {{event.startDateTime | date:'dd/MM/yyyy HH:mm'}} - {{event.endDateTime | date:'dd/MM/yyyy HH:mm'}}
+    </ng-template>
+    <ng-template #avatarTemplate>
+    </ng-template>
+
+    <ng-template #extraTemplate>
+      @if(event.isPublic) {
+        <nz-tag nzColor="green">
+          <i nz-icon nzType="check-circle" nzTheme="outline"></i>
+          Public
+        </nz-tag>
+      } @else {
+        <nz-tag nzColor="red">
+        <i nz-icon nzType="close-circle" nzTheme="outline"></i>
+        Private
+      </nz-tag>
+      }
+    </ng-template>
+
+    <ng-template #coverTemplate>
+      <img alt="example" src="{{event.primaryImageUrl}}" />
+
+      <img
+      nz-tooltip
+      nzTooltipTitle="Click To View"
+      nzTooltipPlacement="top"
+      coverImage
+      nz-image
+      [nzSrc]="event.coverImageUrl || ''"
+      [nzFallback]="fallbackImage"
+      >
+
+    </ng-template>
+
+    <ng-template #actionSetting>
+      <nz-icon
+
+      (click)="cardDeleteEmitter.emit(event)" nzType="delete"></nz-icon>
+    </ng-template>
+    <ng-template #actionEdit>
+      <nz-icon nzType="edit" (click)="cardEditEmitter.emit(event)"></nz-icon>
+    </ng-template>
+    <ng-template #actionEllipsis>
+      <nz-icon nzType="ellipsis" (click)="cardViewEmitter.emit(event)"></nz-icon>
+    </ng-template>
+  }
+</nz-row>

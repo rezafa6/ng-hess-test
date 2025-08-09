@@ -6,36 +6,16 @@ import { EventListComponent } from "./pages/event-list/event-list.component";
 import { EventManagmentComponent } from "./event-managment.component";
 import { DrawerService } from "../../../common/services/drawer-service";
 import { NzDrawerService } from "ng-zorro-antd/drawer";
-// @NgModule({
-//   declarations: [
-//     // EmHeaderComponent
-//     // EventListComponent
-//   ],
-//   imports: [
-//    SharedModule,
-//    EventListComponent,
-//    EventManagmentComponent,
+import { EventCardViewComponent } from "./pages/common/event-card-view/event-card-view.component";
 
-//   ],
-//   exports: [
-//     SharedModule,
-//     EventManagmentRoutingModule,
-
-//   ],
-//   providers: [
-//     DrawerService,
-//     NzDrawerService
-//   ]
-// })
-// export class EventManagmentModule {}
 @NgModule({
   declarations: [
-    // EventListComponent,
-    // EventManagmentComponent,
+
   ],
   imports: [
     SharedModule,
     EventManagmentRoutingModule,
+    
   ],
   exports: [
     SharedModule,

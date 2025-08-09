@@ -26,6 +26,7 @@ import { EventModel } from '../../../../../common/models/event.model';
 import { SharedModule } from '../../../../../common/shared.module';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzGridModule } from 'ng-zorro-antd/grid';
+import { EventCardViewComponent } from '../common/event-card-view/event-card-view.component';
 
 const antDesignModules = [
   NzButtonModule, NzIconModule, NzModalModule,
@@ -40,7 +41,7 @@ const antDesignModules = [
 
 @Component({
   selector: 'app-event-list',
-  imports: [FormsModule , MasterTableComponent, ColDefDirective, WellcomeConfettiComponent, DatePipe, SharedModule, ...antDesignModules ],
+  imports: [FormsModule , MasterTableComponent, ColDefDirective, WellcomeConfettiComponent, EventCardViewComponent, DatePipe, SharedModule, ...antDesignModules ],
   providers: [],
   templateUrl: './event-list.component.html',
   styleUrl: './event-list.component.scss',
