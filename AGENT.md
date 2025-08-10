@@ -18,9 +18,15 @@ Key features:
   - A toggle between private and public events.
   - A search input that filters by event title.
 - For public events, copying the event link provides a URL that, when opened in a browser, will:
+
   - Load the event list page.
   - After events are loaded, automatically open the **details sidebar**.
   - Display the details of the event whose link was copied.
+
+  ### Theme Support
+
+  The module supports two themes: **Light** and **Dark**.
+  Theme switching is handled globally and applies across all components in the module.
 
 ## Architecture Overview
 
@@ -35,7 +41,7 @@ The main layout includes:
 - A header component (`app-em-header`) at the top.
 - A `<router-outlet>` for rendering the active page.
 - Responsive layout using NG-ZORRO grid system.
-- Folder name is _layout in /private/event-management
+- Folder name is \_layout in /private/event-management
 
 - **pages/**  
   Contains the main feature pages.  
