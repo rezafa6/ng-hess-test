@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, signal, OnInit, OnDestroy } from '@angular/core';
 import { MasterTableComponent } from '../../../../../common/components/master-table/master-table.component';
 import { ColDefDirective } from '../../../../../common/directives/col-def.directive';
@@ -49,11 +48,12 @@ const components = [
 export class EventListComponent implements AfterViewInit, OnInit, OnDestroy {
 
   private _destroy$ = new Subject<void>();
+  originalDataSource: EventModel[] = [];
+  querySubscription!: Subscription;
   showOnlyPublic = signal(false);
   showConfetti = signal(true);
   editMode: boolean = false;
   loading = signal(false);
-  originalDataSource: EventModel[] = [];
 
   tableData = signal({
     columns: [
@@ -71,7 +71,7 @@ export class EventListComponent implements AfterViewInit, OnInit, OnDestroy {
     ],
     dataSource: [] as EventModel[]
   });
-  querySubscription!: Subscription
+
   constructor(
     private _modal: NzModalService,
     private _eventService: EventService,
@@ -81,11 +81,6 @@ export class EventListComponent implements AfterViewInit, OnInit, OnDestroy {
     private _activeRoute: ActivatedRoute
   ) { }
 
-  ngAfterViewInit(): void {
-    setTimeout(() => {
-      this.showConfetti.set(false);
-    }, 1750);
-  }
 
   ngOnInit(): void {
     this.getEventsTableData().subscribe(
@@ -93,7 +88,7 @@ export class EventListComponent implements AfterViewInit, OnInit, OnDestroy {
         complete: () => {
           this.querySubscription = this._activeRoute.queryParams.subscribe((params) => {
             if (params['eventId']) {
-              const foundEvent = this.tableData().dataSource.find((event: any) => event.id === params['eventId']);
+              const foundEvent = this.tableData().dataSource.find((event: EventModel) => event.id === params['eventId']);
               if (foundEvent) {
                 this.eventInfoBtnClicked(foundEvent)
               } else {
@@ -104,6 +99,12 @@ export class EventListComponent implements AfterViewInit, OnInit, OnDestroy {
         }
       }
     )
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.showConfetti.set(false);
+    }, 1750);
   }
 
   ngOnDestroy(): void {
@@ -131,7 +132,7 @@ export class EventListComponent implements AfterViewInit, OnInit, OnDestroy {
                   event.isPublic = index % 2 == 0; // * set `public` prop (mock data missed this prop)
                   event.location = `${venue.venueName} ${venue.address1} ${venue.city} ${venue.state} ${venue.country} ${venue.postalZip}`;
                 });
-                this.tableData.update((current: any) => ({
+                this.tableData.update((current: { columns: any[]; dataSource: EventModel[] }) => ({
                   ...current,
                   dataSource: data.events
                 }))
@@ -160,9 +161,9 @@ export class EventListComponent implements AfterViewInit, OnInit, OnDestroy {
       this._confirmService.confirm('Confirm Delete', 'Are you sure you want to delete this event ?')
         .subscribe(result => {
           if (result) {
-            this.tableData.update((items: any) => ({
+            this.tableData.update((items: { columns: any[]; dataSource: EventModel[] }) => ({
               ...items,
-              dataSource: items.dataSource.filter((event: any) => event.id !== id)
+              dataSource: items.dataSource.filter((event: EventModel) => event.id !== id)
             }));
           }
         });
@@ -196,12 +197,12 @@ export class EventListComponent implements AfterViewInit, OnInit, OnDestroy {
       coverImageUrl: event.coverImageUrl,
     }
     this.editMode = true;
-    this.openCreateModal(eventData);
+    this.openCreateModal(eventData as EventModel);
   }
 
-  openCreateModal(eventData: any = null) {
+  openCreateModal(eventData: EventModel | null = null) {
     const modalRef = this._modal.create({
-      nzTitle: this.editMode ? `Edit ${eventData.title} Event` : 'Create New Event',
+      nzTitle: this.editMode ? `Edit ${eventData?.title} Event` : 'Create New Event',
       nzContent: AddEditEventModalComponent,
       nzData: {
         title: this.editMode ? 'Edit Event' : 'Create New Event',
@@ -218,9 +219,9 @@ export class EventListComponent implements AfterViewInit, OnInit, OnDestroy {
         const { result, editMode } = output;
         // edit current event
         if (editMode) {
-          this.tableData.update((current: any) => ({
+          this.tableData.update((current: { columns: any[]; dataSource: EventModel[] }) => ({
             ...current,
-            dataSource: current.dataSource.map((event: any) => event.id === eventData.id ? { ...result, id: eventData } : event)
+            dataSource: current.dataSource.map((event: EventModel) => event.id === eventData?.id ? { ...result, id: eventData } : event)
           }))
           this._message.success('Event updated successfully');
           return;
@@ -240,10 +241,11 @@ export class EventListComponent implements AfterViewInit, OnInit, OnDestroy {
           leads: [],
           status: 'Active',
         }
-        this.tableData.update((current: any) => ({
+        this.tableData.update((current: { columns: any[]; dataSource: EventModel[] }) => ({
           ...current,
           dataSource: [...current.dataSource, newEvent]
-        }))
+        }));
+        this.originalDataSource = [...this.tableData().dataSource];
         this._message.success('Event created successfully');
       }
     });
@@ -252,8 +254,10 @@ export class EventListComponent implements AfterViewInit, OnInit, OnDestroy {
 
   // #region Filter By Public
 
-  filterByPublic() {
+  filterByPublic(): void {
+  setTimeout(() => {
     const showPublic = this.showOnlyPublic();
+
     if (!this.originalDataSource.length) {
       this.originalDataSource = [...this.tableData().dataSource];
     }
@@ -266,6 +270,7 @@ export class EventListComponent implements AfterViewInit, OnInit, OnDestroy {
       ...current,
       dataSource: filteredData
     }));
+  }, 120);
   }
   //#endregion
 

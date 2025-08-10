@@ -11,8 +11,8 @@
     </nz-col>
   </nz-row>
 
-  <nz-table #basicTable [nzData]="tableData.dataSource | searchFilter:searchTerm" [nzPageSize]="10"
-    [nzScroll]="{ x: '1000px' }" [nzShowPagination]="true" [nzSize]="'middle'" [nzBordered]="true">
+  <nz-table #basicTable [nzData]="tableData.dataSource | searchFilter:searchTerm" [nzPageSize]="25"
+    [nzScroll]="{ x: '1000px' }"  [nzSize]="'middle'" [nzBordered]="true">
     <thead>
       <tr>
         <th *ngFor="let column of tableData.columns" [nzColumnKey]="column.key"

@@ -27,7 +27,7 @@ enum UploadZoneType {
 
 export class AddEditEventModalComponent implements OnInit  {
 
-  UploadZoneType = UploadZoneType
+  UploadZoneType = UploadZoneType;
   editMode: boolean = false;
   form = new FormGroup({
     title: new FormControl('', [Validators.required]),
@@ -112,12 +112,6 @@ export class AddEditEventModalComponent implements OnInit  {
     uploadZoneType === UploadZoneType.PRIMARY_IMAGE ? this.primaryImageFileList = fileList : this.coverImageFileList = fileList;
   }
 
-  getBase64(file: File, callback: (img: string) => void): void {
-    const reader = new FileReader();
-    reader.addEventListener('load', () => callback(reader.result!.toString()));
-    reader.readAsDataURL(file);
-  }
-
   onSaveBtnClicked(): void {
     if(this.form.invalid) {
       this.form.markAllAsTouched();
@@ -137,6 +131,12 @@ export class AddEditEventModalComponent implements OnInit  {
 
   onCancelBtnClicked(): void {
     this.modalRef.destroy();
+  }
+
+  getBase64(file: File, callback: (img: string) => void): void {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => callback(reader.result!.toString()));
+    reader.readAsDataURL(file);
   }
 
   isInvalid(controlName: string): boolean {

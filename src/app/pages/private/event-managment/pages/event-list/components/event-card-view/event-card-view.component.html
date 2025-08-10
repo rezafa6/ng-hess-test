@@ -23,7 +23,7 @@
     </nz-col>
 
     <ng-template #descriptionTemplate>
-      <!-- show 5 words of description -->
+      <!-- ? show 5 words of description -->
       {{event.description ? (event.description.split(' ').length > 5 ? event.description.split(' ').slice(0, 5).join(' ') + '...' : event.description) : 'No description'}}
       <br>
       {{event.startDateTime | date:'dd/MM/yyyy HH:mm'}} - {{event.endDateTime | date:'dd/MM/yyyy HH:mm'}}

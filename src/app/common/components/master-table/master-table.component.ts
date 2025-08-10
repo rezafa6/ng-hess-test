@@ -27,7 +27,7 @@ export class MasterTableComponent implements OnInit, AfterContentInit {
   @Input() tableData: any;
   @Input() showSearchInput = true;
   @ContentChildren(ColDefDirective) colsDef!: QueryList<ColDefDirective>;
-  searchTerm = '';
+  searchTerm: string = '';
   templates: { [key: string]: any } = {};
 
   ngOnInit() {

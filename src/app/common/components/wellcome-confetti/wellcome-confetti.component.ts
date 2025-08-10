@@ -23,7 +23,6 @@ export class WellcomeConfettiComponent implements AfterViewInit {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    // ساخت ذرات
     for (let i = 0; i < 150; i++) {
       this.particles.push({
         x: Math.random() * canvas.width,

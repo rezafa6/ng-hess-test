@@ -1,3 +1,4 @@
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { EventModel } from '../../../../../../../common/models/event.model';
 import { NzGridModule } from 'ng-zorro-antd/grid';
@@ -15,7 +16,8 @@ const nzModules = [
   NzIconModule,
   NzTagModule,
   NzImageModule,
-  NzButtonModule
+  NzButtonModule,
+  NzToolTipModule
 ]
 
 @Component({
@@ -25,7 +27,8 @@ const nzModules = [
   styleUrl: './event-card-view.component.scss'
 })
 export class EventCardViewComponent {
-@Input() cardData: EventModel[] = []
+
+  @Input() cardData: EventModel[] = [];
   @Output() cardDeleteEmitter = new EventEmitter<EventModel>();
   @Output() cardEditEmitter = new EventEmitter<EventModel>();
   @Output() cardViewEmitter = new EventEmitter<EventModel>();
