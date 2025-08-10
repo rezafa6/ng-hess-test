@@ -28,6 +28,12 @@ Key features:
   The module supports two themes: **Light** and **Dark**.
   Theme switching is handled globally and applies across all components in the module.
 
+  ### Global Table Component
+
+  A reusable global table component was implemented.
+  It can accept any type of component as a cell renderer by leveraging `ng-template`, `ng-container`, and a custom `ColDef` directive.
+  This makes the table adaptable to various data types and presentation requirements.
+
 ## Architecture Overview
 
 The **EventManagement** module follows a modular, component-driven architecture with clear separation of concerns.
