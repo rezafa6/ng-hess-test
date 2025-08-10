@@ -35,10 +35,10 @@
       <li nz-menu-item class="px-2">
         <nz-tag nzColor="success">PRO</nz-tag>
       </li>
-      <button  nz-button nzType="primary" nzShape="circle">
+      <button  nz-button nzType="primary" nzShape="circle"   (click)="toggleTheme()">
         <nz-icon
         class="cursor-pointer"
-        (click)="toggleTheme()" nzType="sun" nzTheme="outline" />
+       [nzType]="theme === 'dark' ? 'sun' : 'moon'" nzTheme="outline" />
       </button>
     </ul>
 
