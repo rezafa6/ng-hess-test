@@ -257,11 +257,9 @@ export class EventListComponent implements AfterViewInit, OnInit, OnDestroy {
   filterByPublic(): void {
   setTimeout(() => {
     const showPublic = this.showOnlyPublic();
-
     if (!this.originalDataSource.length) {
       this.originalDataSource = [...this.tableData().dataSource];
     }
-
     const filteredData = showPublic
       ? this.originalDataSource.filter((item: any) => item.isPublic)
       : [...this.originalDataSource];

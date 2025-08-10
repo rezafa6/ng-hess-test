@@ -1,0 +1,18 @@
+$dark-theme-background-color: #1B1B1B;
+
+.dark-theme {
+  .ant-layout-content {
+    background-color: $dark-theme-background-color !important;
+  }
+  button[nzType="primary"] {
+    color: #333 !important;
+  }
+
+  .login {
+    background-color: $dark-theme-background-color !important;
+    .login-box {
+      background-color: #313131 !important;
+    }
+  }
+
+}

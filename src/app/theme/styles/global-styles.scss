@@ -1,5 +1,27 @@
 @use "shared" as *;
+@use "dark-theme" as *;
 
+// ant-design-custom-styles
+.ant-tag,
+  .ant-btn-default,
+  .ant-btn-primary {
+    border-radius: .35rem !important;
+  }
+
+  button[nzSize="small"],
+  .ant-btn-icon-only.ant-btn-sm {
+    border-radius: 50% !important;
+  }
+
+  .ant-form-item-label>label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::before {
+    position: absolute;
+    top: 5px;
+    right: -15px;
+  }
+
+  .ant-pagination-item {
+    border-radius: 5px;
+  }
 
 .theme-background {
   position: fixed;

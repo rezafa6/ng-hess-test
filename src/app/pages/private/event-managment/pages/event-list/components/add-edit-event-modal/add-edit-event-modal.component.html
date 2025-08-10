@@ -113,6 +113,11 @@
             </div>
           </ng-container>
         </nz-upload>
+        @if(isInvalid('coverImageUrl')) {
+          <nz-typography [nzType]="'danger'">
+            Cover Image is required
+          </nz-typography>
+          }
       </nz-form-control>
     </nz-form-item>
     <!-- #End Cover Image -->

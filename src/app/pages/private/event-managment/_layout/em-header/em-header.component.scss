@@ -1,9 +1,9 @@
 .header-wrapper {
   padding: 0 16px;
-  height: 32px !important;
+  height: 36px !important;
 
   ul {
-    line-height: 32px !important;
+    line-height: 36px !important;
     .ant-menu-item-selected {
       color: #000;
       nz-icon {
@@ -40,8 +40,8 @@
     }
   }
 
-  @media (max-width: 375px) {
-   li[avatar] {
+  @media (max-width: 425px) {
+   li[avatar] , button[notif] , nz-badge {
     display: none;
    }
   }

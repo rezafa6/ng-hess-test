@@ -28,13 +28,18 @@
           style="color:#f56a00; background-color:#fde3cf;"
           [style.top]="'-2px'" class="position-relative"></nz-avatar>
       </li>
-      <button nz-button nzType="primary" nzShape="circle">
+      <button notif nz-button nzType="primary" nzShape="circle">
         <nz-icon nzType="notification"></nz-icon>
       </button>
       <nz-badge [nzDot]="true" [style.top]="'-5px'" class="position-relative"></nz-badge>
-      <li nz-menu-item>
+      <li nz-menu-item class="px-2">
         <nz-tag nzColor="success">PRO</nz-tag>
       </li>
+      <button  nz-button nzType="primary" nzShape="circle">
+        <nz-icon
+        class="cursor-pointer"
+        (click)="toggleTheme()" nzType="sun" nzTheme="outline" />
+      </button>
     </ul>
 
   </div>
@@ -69,8 +74,16 @@
     Settings
     </li>
     <li nz-menu-item>
+      <nz-icon nzType="notification" nzTheme="outline" />
+    Notifications
+    </li>
+    <li nz-menu-item>
       <nz-icon nzType="rocket" nzTheme="outline" />
     Profile
+    </li>
+    <li nz-menu-item (click)="toggleTheme()">
+      <nz-icon nzType="sun" nzTheme="outline" />
+      Change Theme
     </li>
   </ul>
 </ng-template>

@@ -19,4 +19,8 @@ const antDesignModules = [
   templateUrl: './event-managment.component.html',
   styleUrl: './event-managment.component.scss'
 })
-export class EventManagmentComponent {}
+export class EventManagmentComponent {
+  toggleTheme(isDark: boolean) {
+    document.body.classList.toggle('dark-theme', isDark);
+  }
+}
